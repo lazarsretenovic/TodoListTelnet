@@ -16,6 +16,7 @@ public class User {
     private String username;
     @Column(name = "password")
     private String password;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     private List<Todo> todoList;
 
     public User() {

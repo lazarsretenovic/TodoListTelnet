@@ -12,6 +12,7 @@ public class Todo {
     private String description;
     @Column(name = "status")
     private boolean status;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private User user;
 
     public Todo() {
