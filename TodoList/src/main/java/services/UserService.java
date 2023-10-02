@@ -1,11 +1,11 @@
 package services;
 
+import domain.Todo;
 import domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserService {
     List<User> findAll();
 
     User findById(int theId);

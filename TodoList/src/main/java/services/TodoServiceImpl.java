@@ -1,15 +1,16 @@
 package services;
 
+import Dao.TodoRepository;
 import domain.Todo;
-import domain.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-public abstract class TodoRepositoryImpl implements  TodoRepository{
+@Service
+public class TodoServiceImpl implements TodoService {
     private TodoRepository todoRepository;
 
-    public TodoRepositoryImpl(TodoRepository todoRepository) {
+    public TodoServiceImpl(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
@@ -20,7 +21,7 @@ public abstract class TodoRepositoryImpl implements  TodoRepository{
 
     @Override
     public Todo findById(int theId) {
-        Optional<Todo> result = Optional.ofNullable(todoRepository.findById(theId));
+        Optional<Todo> result = todoRepository.findById((long) theId);
 
         Todo theTodo = null;
 
@@ -36,13 +37,12 @@ public abstract class TodoRepositoryImpl implements  TodoRepository{
     }
 
     @Override
-    public Object save(Todo theTodo) {
-        todoRepository.save(theTodo);
-        return theTodo;
+    public Todo save(Todo todo) {
+        return todoRepository.save(todo);
     }
 
     @Override
     public void deleteById(int theId) {
-        todoRepository.deleteById(theId);
+     todoRepository.deleteById((long) theId);
     }
 }
