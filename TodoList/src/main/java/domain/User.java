@@ -3,6 +3,7 @@ package domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "user")
@@ -64,5 +65,15 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+public void setTodos(List<Todo> todoList){
+        this.todoList= todoList;
+}
+    public void add(Todo tempTodo){
+        if(todoList==null){
+            todoList= new ArrayList<>();
+        }
+        todoList.add(tempTodo);
+        tempTodo.setUser(this);
     }
 }
