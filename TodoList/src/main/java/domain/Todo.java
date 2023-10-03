@@ -3,6 +3,7 @@ package domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "todoList")
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,14 +12,14 @@ public class Todo {
     @Column(name = "description")
     private String description;
     @Column(name = "status")
-    private boolean status;
+    private String status;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private User user;
 
     public Todo() {
     }
 
-    public Todo(String description, boolean status) {
+    public Todo(String description, String status) {
         this.description = description;
         this.status = status;
     }
@@ -39,11 +40,11 @@ public class Todo {
         this.description = description;
     }
 
-    public boolean isStatus() {
+    public String isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -63,4 +64,5 @@ public class Todo {
                 ", status=" + status +
                 '}';
     }
+
 }
