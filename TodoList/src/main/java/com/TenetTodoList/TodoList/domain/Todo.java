@@ -1,4 +1,4 @@
-package domain;
+package com.TenetTodoList.TodoList.domain;
 
 import jakarta.persistence.*;
 
@@ -8,12 +8,13 @@ public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
     @Column(name = "description")
     private String description;
     @Column(name = "status")
     private String status;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Todo() {
@@ -24,11 +25,11 @@ public class Todo {
         this.status = status;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

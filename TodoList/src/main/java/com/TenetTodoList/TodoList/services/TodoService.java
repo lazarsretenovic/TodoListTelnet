@@ -1,9 +1,10 @@
-package services;
+package com.TenetTodoList.TodoList.services;
 
-import domain.Todo;
+import com.TenetTodoList.TodoList.domain.Todo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public interface TodoService {
     List<Todo> findAll();
 

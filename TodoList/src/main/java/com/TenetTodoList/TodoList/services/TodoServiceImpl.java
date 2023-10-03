@@ -1,7 +1,7 @@
-package services;
+package com.TenetTodoList.TodoList.services;
 
-import Dao.TodoRepository;
-import domain.Todo;
+import com.TenetTodoList.TodoList.Dao.TodoRepository;
+import com.TenetTodoList.TodoList.domain.Todo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,24 +16,19 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<Todo> findAll() {
+
         return  todoRepository.findAll();
     }
 
     @Override
     public Todo findById(int theId) {
-        Optional<Todo> result = todoRepository.findById((long) theId);
-
-        Todo theTodo = null;
+        Optional<Todo> result = todoRepository.findById(theId);
 
         if (result.isPresent()) {
-            theTodo = result.get();
+            return result.get();
+        } else {
+            throw new RuntimeException("Did not find Todo with the id of " + theId);
         }
-        else {
-            // we didn't find the employee
-            throw new RuntimeException("Did not find Todolist with the id of- " + theId);
-        }
-
-        return theTodo;
     }
 
     @Override
@@ -43,6 +38,6 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void deleteById(int theId) {
-     todoRepository.deleteById((long) theId);
+     todoRepository.deleteById(theId);
     }
 }

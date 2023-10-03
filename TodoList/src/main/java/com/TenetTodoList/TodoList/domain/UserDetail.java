@@ -1,4 +1,4 @@
-package domain;
+package com.TenetTodoList.TodoList.domain;
 
 import jakarta.persistence.*;
 
@@ -8,7 +8,7 @@ public class UserDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
     @Column(name = "firstname")
     private String firstName;
     @Column(name = "lastname")
@@ -21,19 +21,19 @@ public class UserDetail {
     public UserDetail() {
     }
 
-    public UserDetail(Long id, String firstName, String lastName, String email, String city) {
-        this.id = id;
+    public UserDetail(String firstName, String lastName, String email, String city) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.city = city;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

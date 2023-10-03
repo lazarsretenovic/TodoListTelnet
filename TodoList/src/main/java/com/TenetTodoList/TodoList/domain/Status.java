@@ -1,4 +1,4 @@
-package domain;
+package com.TenetTodoList.TodoList.domain;
 
 public enum Status {
     NOT_DONE,

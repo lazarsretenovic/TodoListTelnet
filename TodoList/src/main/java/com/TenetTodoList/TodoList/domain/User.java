@@ -1,4 +1,4 @@
-package domain;
+package com.TenetTodoList.TodoList.domain;
 
 
 import jakarta.persistence.*;
@@ -11,13 +11,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
     private String password;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_detail_id")
+    private UserDetail userDetail;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     private List<Todo> todoList;
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
+    }
 
     public User() {
     }
@@ -27,11 +38,11 @@ public class User {
         this.password = password;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -65,6 +76,8 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", userDetail='" + userDetail + '\'' +
+
                 '}';
     }
 public void setTodos(List<Todo> todoList){
