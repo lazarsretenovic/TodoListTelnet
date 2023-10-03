@@ -1,5 +1,6 @@
 package com.TenetTodoList.TodoList.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +14,8 @@ public class Todo {
     private String description;
     @Column(name = "status")
     private String status;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -41,7 +43,7 @@ public class Todo {
         this.description = description;
     }
 
-    public String isStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -62,8 +64,7 @@ public class Todo {
         return "Todo{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 '}';
     }
-
 }

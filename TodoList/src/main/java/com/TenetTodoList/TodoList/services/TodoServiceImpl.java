@@ -23,12 +23,14 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public Todo findById(int theId) {
         Optional<Todo> result = todoRepository.findById(theId);
-
+        Todo theTodo;
+        theTodo=null;
         if (result.isPresent()) {
-            return result.get();
+            theTodo= result.get();
         } else {
             throw new RuntimeException("Did not find Todo with the id of " + theId);
         }
+        return theTodo;
     }
 
     @Override

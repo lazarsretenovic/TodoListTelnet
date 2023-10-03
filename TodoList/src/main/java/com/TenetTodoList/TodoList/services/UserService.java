@@ -10,7 +10,7 @@ public interface UserService {
 
     User findById(int theId);
 
-    Object save(User user);
+    User save(User user);
 
     void deleteById(int theId);
 }

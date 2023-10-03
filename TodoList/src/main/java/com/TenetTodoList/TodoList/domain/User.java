@@ -1,6 +1,7 @@
 package com.TenetTodoList.TodoList.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_detail_id")
     private UserDetail userDetail;
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     private List<Todo> todoList;
 
