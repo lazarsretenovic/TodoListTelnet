@@ -38,6 +38,22 @@ public class TodoController {
         Todo todo= todoService.save(theTodo);
         return todo;
     }
+    @PutMapping("/todolist")
+    public Todo updateTodo(@RequestBody Todo theTodo){
+        Todo todo=todoService.save(theTodo);
+        return todo;
+    }
+    @DeleteMapping("/todolist/{todoListId}")
+    public String deleteTodo(@PathVariable int todoListId){
+        Todo theTodo= todoService.findById(todoListId);
+        if(theTodo==null){
+            throw new RuntimeException("Todo list by that id doesnt exit:"+todoListId);
+        }
+
+        todoService.deleteById(todoListId);
+        return "Deleted todolist that had id of:"+todoListId;
+
+    }
 
 
 

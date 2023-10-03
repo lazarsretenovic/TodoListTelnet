@@ -38,7 +38,20 @@ public class UserController {
         User user= userService.save(theUser);
         return user;
 }
-
+    @PutMapping("/users")
+    public User updateUser(@RequestBody User theUser){
+        User user=userService.save(theUser);
+        return  user;
+    }
+    @DeleteMapping("/users/{userId}")
+    public String deleteUser(@PathVariable int userId){
+        User theUser=userService.findById(userId);
+        if(theUser == null){
+            throw new RuntimeException("User not found"+userId);
+        }
+        userService.deleteById(userId);
+        return "Deleted the user by the id of:"+theUser;
+    }
 
 }
 
