@@ -20,9 +20,9 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_detail_id")
     private UserDetail userDetail;
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    private List<Todo> todoList;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH })
+    private List<TodoList> todoList;
 
     public UserDetail getUserDetail() {
         return userDetail;
@@ -64,11 +64,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Todo> getTodoList() {
+    public List<TodoList> getTodoList() {
         return todoList;
     }
 
-    public void setTodoList(List<Todo> todoList) {
+    public void setTodoList(List<TodoList> todoList) {
         this.todoList = todoList;
     }
 
@@ -82,14 +82,14 @@ public class User {
 
                 '}';
     }
-public void setTodos(List<Todo> todoList){
+public void setTodos(List<TodoList> todoList){
         this.todoList= todoList;
 }
-    public void add(Todo tempTodo){
+    public void add(TodoList tempTodoList){
         if(todoList==null){
             todoList= new ArrayList<>();
         }
-        todoList.add(tempTodo);
-        tempTodo.setUser(this);
+        todoList.add(tempTodoList);
+        tempTodoList.setUser(this);
     }
 }

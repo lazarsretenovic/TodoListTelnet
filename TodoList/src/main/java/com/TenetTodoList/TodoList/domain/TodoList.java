@@ -3,9 +3,11 @@ package com.TenetTodoList.TodoList.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-@Table(name = "todoList")
-public class Todo {
+@Table(name = "todo_list")
+public class TodoList{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -14,15 +16,14 @@ public class Todo {
     private String description;
     @Column(name = "status")
     private String status;
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH },fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Todo() {
+    public TodoList() {
     }
 
-    public Todo(String description, String status) {
+    public TodoList(String description, String status) {
         this.description = description;
         this.status = status;
     }

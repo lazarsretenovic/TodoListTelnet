@@ -1,7 +1,7 @@
 package com.TenetTodoList.TodoList.controller;
 
-import com.TenetTodoList.TodoList.domain.Todo;
-import com.TenetTodoList.TodoList.domain.User;
+import com.TenetTodoList.TodoList.domain.TodoList;
+import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.TenetTodoList.TodoList.services.TodoService;
@@ -19,39 +19,39 @@ public class TodoController {
     }
 
     @GetMapping("/todolist")
-    public List<Todo> findAll(){
+    public List<TodoListDTO> findAll(){
         return todoService.findAll();
     }
 
 @GetMapping("/todolist/{todolistId}")
-    public Todo getTodo(@PathVariable int todolistId){
-        Todo theTodo= todoService.findById(todolistId);
-        if(theTodo==null){
+    public TodoListDTO getTodo(@PathVariable int todolistId){
+        TodoListDTO theTodoList = todoService.findById(todolistId);
+        if(theTodoList ==null){
             throw new RuntimeException("Todo list with that id doesnt exits\n id-"+ todolistId);
         }
-        return theTodo;
+        return theTodoList;
 }
 
     @PostMapping("/todolist")
-    public Todo addTodo(@RequestBody Todo theTodo){
-        theTodo.setId(0);
-        Todo todo= todoService.save(theTodo);
-        return todo;
+    public TodoListDTO addTodo(@RequestBody TodoListDTO theTodoList){
+        theTodoList.setId(0);
+        TodoListDTO todoList = todoService.save(theTodoList);
+        return todoList;
     }
     @PutMapping("/todolist")
-    public Todo updateTodo(@RequestBody Todo theTodo){
-        Todo todo=todoService.save(theTodo);
-        return todo;
+    public TodoListDTO updateTodo(@RequestBody TodoListDTO theTodoList){
+        TodoListDTO todoList =todoService.save(theTodoList);
+        return todoList;
     }
     @DeleteMapping("/todolist/{todoListId}")
     public String deleteTodo(@PathVariable int todoListId){
-        Todo theTodo= todoService.findById(todoListId);
-        if(theTodo==null){
+        TodoListDTO theTodoList = todoService.findById(todoListId);
+        if(theTodoList ==null){
             throw new RuntimeException("Todo list by that id doesnt exit:"+todoListId);
         }
 
         todoService.deleteById(todoListId);
-        return "Deleted todolist that had id of:"+todoListId;
+        return "Deleted todolist that had id of:"+ todoListId;
 
     }
 
