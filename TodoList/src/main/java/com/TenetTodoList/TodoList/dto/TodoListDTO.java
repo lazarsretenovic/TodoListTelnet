@@ -12,11 +12,11 @@ public class TodoListDTO {
     public TodoListDTO() {
     }
 
-    public TodoListDTO(int id, String description, String status, User user) {
-        this.id = id;
-        this.description = description;
-        this.status = status;
-        this.user = user;
+    public TodoListDTO(int id_Dto, String description_Dto, String statusDto, User userDto) {
+        this.id = id_Dto;
+        this.description = description_Dto;
+        this.status = statusDto;
+        this.user = userDto;
     }
 
     public int getId() {

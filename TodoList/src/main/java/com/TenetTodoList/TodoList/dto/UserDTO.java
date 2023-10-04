@@ -7,17 +7,17 @@ public class UserDTO {
     private int id;
     private String username;
     private String password;
-    private UserDetail userDetail;
+    private UserDetail user_detail;
 
 
     public UserDTO() {
     }
 
-    public UserDTO(int id, String username, String password, UserDetail userDetail, User user) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.userDetail = userDetail;
+    public UserDTO(int id_Dto, String username_Dto, String password_Dto, UserDetail user_detail, User user) {
+        this.id = id_Dto;
+        this.username = username_Dto;
+        this.password = password_Dto;
+        this.user_detail = user_detail;
     }
 
     public int getId() {
@@ -44,12 +44,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public UserDetail getUserDetail() {
-        return userDetail;
+    public UserDetail getUser_detail() {
+        return user_detail;
     }
 
-    public void setUserDetail(UserDetail userDetail) {
-        this.userDetail = userDetail;
+    public void setUser_detail(UserDetail user_detail) {
+        this.user_detail = user_detail;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class UserDTO {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", userDetail=" + userDetail +
+                ", userDetail=" + user_detail +
                 '}';
     }
 }

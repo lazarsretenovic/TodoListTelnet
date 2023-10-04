@@ -20,7 +20,7 @@ public interface UserService {
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
         userDTO.setPassword(user.getPassword());
-        userDTO.setUserDetail(user.getUserDetail());
+        userDTO.setUser_detail(user.getUserDetail());
         return  userDTO;
     }
 }

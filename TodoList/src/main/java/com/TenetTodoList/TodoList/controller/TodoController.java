@@ -1,6 +1,5 @@
 package com.TenetTodoList.TodoList.controller;
 
-import com.TenetTodoList.TodoList.domain.TodoList;
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

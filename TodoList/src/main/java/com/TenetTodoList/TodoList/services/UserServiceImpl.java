@@ -1,11 +1,8 @@
 package com.TenetTodoList.TodoList.services;
 
 import com.TenetTodoList.TodoList.Dao.UserRepository;
-import com.TenetTodoList.TodoList.domain.TodoList;
 import com.TenetTodoList.TodoList.domain.User;
-import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import com.TenetTodoList.TodoList.dto.UserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +49,7 @@ public class UserServiceImpl implements UserService {
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
         userDTO.setPassword(user.getPassword());
-        userDTO.setUserDetail(user.getUserDetail());
+        userDTO.setUser_detail(user.getUserDetail());
         return userDTO;
     }
     private User convertDtoToEntity(UserDTO userDTO) {
@@ -60,7 +57,7 @@ public class UserServiceImpl implements UserService {
         user.setId(userDTO.getId());
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
-        user.setUserDetail(userDTO.getUserDetail());
+        user.setUserDetail(userDTO.getUser_detail());
         return user;
     }
 }
