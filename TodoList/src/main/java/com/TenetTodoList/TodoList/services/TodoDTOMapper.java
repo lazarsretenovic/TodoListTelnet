@@ -7,12 +7,19 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 @Component
 public class TodoDTOMapper implements Function<TodoList, TodoListDTO> {
+
+    private final UserDTOMapper userDTOMapper;
+
+    public TodoDTOMapper(UserDTOMapper userDTOMapper) {
+        this.userDTOMapper = userDTOMapper;
+    }
+
     public TodoListDTO apply(TodoList todoList){
         return new TodoListDTO(
                 todoList.getId(),
                 todoList.getDescription(),
                 todoList.getStatus(),
-                todoList.getUser()
+                userDTOMapper.apply(todoList.getUser())
         );
     }
 

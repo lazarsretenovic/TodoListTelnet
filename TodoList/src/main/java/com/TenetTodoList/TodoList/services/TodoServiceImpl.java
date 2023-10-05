@@ -3,6 +3,7 @@ package com.TenetTodoList.TodoList.services;
 import com.TenetTodoList.TodoList.dao.TodoRepository;
 import com.TenetTodoList.TodoList.domain.TodoList;
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
+import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,13 @@ public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
     private final TodoDTOMapper todoDTOMapper;
     private final TodoDTOMapperReverse todoDTOMapperReverse;
+    private final UserDTOMapper userDTOMapper;
 
-    public TodoServiceImpl(TodoRepository todoRepository, TodoDTOMapper todoDTOMapper, TodoDTOMapperReverse todoDTOMapperReverse) {
+    public TodoServiceImpl(TodoRepository todoRepository, TodoDTOMapper todoDTOMapper, TodoDTOMapperReverse todoDTOMapperReverse, UserDTOMapper userDTOMapper) {
         this.todoRepository = todoRepository;
         this.todoDTOMapper = todoDTOMapper;
         this.todoDTOMapperReverse = todoDTOMapperReverse;
+        this.userDTOMapper = userDTOMapper;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class TodoServiceImpl implements TodoService {
             TodoList todoList = result.get();
             return todoDTOMapper.apply(todoList);
         } else {
-            throw new RuntimeException("Did not find Todo with the id of " + theId);
+            throw new ResourceNotFoundException("Did not find Todo with the id of " + theId);
         }
     }
 

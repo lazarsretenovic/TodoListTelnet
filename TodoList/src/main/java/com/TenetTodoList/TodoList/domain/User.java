@@ -1,6 +1,8 @@
     package com.TenetTodoList.TodoList.domain;
 
+    import com.TenetTodoList.TodoList.dto.TodoListDTO;
     import jakarta.persistence.*;
+//    import org.springframework.security.crypto.bcrypt.BCrypt;
 
     import java.util.ArrayList;
     import java.util.List;
@@ -22,6 +24,9 @@
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH })
         private List<TodoList> todoList;
 
+        public User() {
+        }
+
         public UserDetail getUserDetail() {
             return userDetail;
         }
@@ -30,12 +35,16 @@
             this.userDetail = userDetail;
         }
 
-        public User() {
+        public User(int id, String username, String password, UserDetail userDetail, TodoListDTO todoListDTO) {
         }
 
         public User(int id, String username, String password, UserDetail userDetail) {
             this.username = username;
             this.password = password;
+        }
+
+        public User(List<TodoList> todoList) {
+            this.todoList = todoList;
         }
 
         public int getId() {
@@ -59,11 +68,8 @@
         }
 
         public void setPassword(String password) {
-            this.password = password;
-        }
 
-        public List<TodoList> getTodoList() {
-            return todoList;
+//            this.password = BCrypt.hashpw(password, BCrypt.gensalt());
         }
 
         public void setTodoList(List<TodoList> todoList) {

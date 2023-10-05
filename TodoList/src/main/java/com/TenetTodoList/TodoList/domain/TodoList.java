@@ -1,5 +1,6 @@
 package com.TenetTodoList.TodoList.domain;
 
+import com.TenetTodoList.TodoList.dto.UserDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,7 +21,7 @@ public class TodoList{
     public TodoList() {
     }
 
-    public TodoList(int id, String description, String status, User user) {
+    public TodoList(int id, String description, String status, UserDTO user) {
         this.description = description;
         this.status = status;
     }

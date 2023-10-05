@@ -1,8 +1,10 @@
 package com.TenetTodoList.TodoList.controller;
 
 import com.TenetTodoList.TodoList.dto.UserDTO;
+import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class UserController {
     public UserDTO getUser(@PathVariable int userId){
         UserDTO theUser=userService.findById(userId);
         if(theUser==null){
-            throw new RuntimeException("User with that id was not found:"+userId);
+            throw new ResourceNotFoundException("User with that id was not found:"+userId);
         }
         return theUser;
 
@@ -45,11 +47,10 @@ public class UserController {
     public String deleteUser(@PathVariable int userId){
         UserDTO theUser=userService.findById(userId);
         if(theUser == null){
-            throw new RuntimeException("User not found"+userId);
+            throw new ResourceNotFoundException("User not found"+userId);
         }
         userService.deleteById(userId);
         return "Deleted the user by the id of:"+theUser;
     }
-
 }
 
