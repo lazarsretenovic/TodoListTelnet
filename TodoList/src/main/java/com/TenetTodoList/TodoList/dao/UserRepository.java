@@ -1,4 +1,4 @@
-package com.TenetTodoList.TodoList.Dao;
+package com.TenetTodoList.TodoList.dao;
 
 import com.TenetTodoList.TodoList.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

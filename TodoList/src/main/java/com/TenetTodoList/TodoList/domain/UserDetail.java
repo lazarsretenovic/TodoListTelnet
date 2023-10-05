@@ -21,7 +21,7 @@ public class UserDetail {
     public UserDetail() {
     }
 
-    public UserDetail(String firstName, String lastName, String email, String city) {
+    public UserDetail(int id, String firstName, String lastName, String email, String city) {
 
         this.firstName = firstName;
         this.lastName = lastName;

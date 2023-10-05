@@ -1,6 +1,5 @@
 package com.TenetTodoList.TodoList.services;
 
-import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +14,4 @@ public interface UserService {
 
     void deleteById(int theId);
 
-    private UserDTO convertDtoToEntity(User user){
-        UserDTO userDTO= new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setUser_detail(user.getUserDetail());
-        return  userDTO;
-    }
 }

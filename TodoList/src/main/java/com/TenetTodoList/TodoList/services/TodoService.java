@@ -14,14 +14,5 @@ public interface TodoService {
     TodoListDTO save(TodoListDTO todoList);
 
     void deleteById(int theId);
-    private TodoListDTO convertEntityToDto(TodoList todo){
-        TodoListDTO todoListDTO = new TodoListDTO();
-        todoListDTO.setId(todo.getId());
-        todoListDTO.setDescription(todo.getDescription());
-        todoListDTO.setStatus(todo.getStatus());
-        todoListDTO.setUser(todo.getUser());
-        return todoListDTO;
 
-
-    }
 }

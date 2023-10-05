@@ -33,7 +33,6 @@ public class TodoController {
 
     @PostMapping("/todolist")
     public TodoListDTO addTodo(@RequestBody TodoListDTO theTodoList){
-        theTodoList.setId(0);
         TodoListDTO todoList = todoService.save(theTodoList);
         return todoList;
     }

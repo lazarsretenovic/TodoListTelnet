@@ -1,6 +1,6 @@
 package com.TenetTodoList.TodoList.services;
 
-import com.TenetTodoList.TodoList.Dao.UserRepository;
+import com.TenetTodoList.TodoList.dao.UserRepository;
 import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.UserDTO;
 import org.springframework.stereotype.Service;
@@ -10,16 +10,20 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final UserDTOMapper userDTOMapper;
+    private final UserDTOMapperReverse userDTOMapperReverse;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserDTOMapper userDTOMapper, UserDTOMapperReverse userDTOMapperReverse) {
         this.userRepository = userRepository;
+        this.userDTOMapper = userDTOMapper;
+        this.userDTOMapperReverse = userDTOMapperReverse;
     }
 
     @Override
     public List<UserDTO> findAll() {
-        return  userRepository.findAll()
+        return userRepository.findAll()
                 .stream()
-                .map(this::convertEntityToDto)
+                .map(userDTOMapper::apply)
                 .collect(Collectors.toList());
     }
 
@@ -28,7 +32,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> result = userRepository.findById(theId);
         if (result.isPresent()) {
             User user = result.get();
-            return convertEntityToDto(user); // Convert the entity to DTO
+            return userDTOMapper.apply(user);
         } else {
             throw new RuntimeException("Did not find Todo with the id of " + theId);
         }
@@ -36,28 +40,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
-        User user = convertDtoToEntity(userDTO);
-        return convertEntityToDto(userRepository.save(user));
+        User user = userDTOMapperReverse.apply(userDTO);
+        return userDTO;
     }
 
     @Override
     public void deleteById(int theId) {
         userRepository.deleteById(theId);
     }
-    private UserDTO convertEntityToDto(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setUser_detail(user.getUserDetail());
-        return userDTO;
-    }
-    private User convertDtoToEntity(UserDTO userDTO) {
-        User user = new User();
-        user.setId(userDTO.getId());
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
-        user.setUserDetail(userDTO.getUser_detail());
-        return user;
-    }
+
 }

@@ -10,9 +10,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class UserController {
+    @Autowired
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -33,7 +33,6 @@ public class UserController {
     }
     @PostMapping("/users")
     public UserDTO addUser(@RequestBody UserDTO theUser){
-        theUser.setId(0);
         UserDTO user= userService.save(theUser);
         return user;
 }
