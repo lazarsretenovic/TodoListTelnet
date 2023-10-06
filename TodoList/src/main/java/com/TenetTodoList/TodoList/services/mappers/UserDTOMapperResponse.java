@@ -16,6 +16,7 @@ private final UserDetailDTOMapperResponse userDetailDTOMapperResponse;
 
     public UserDTOResponse apply(User user){
         return new UserDTOResponse(
+                user.getId(),
                 user.getUsername(),
                userDetailDTOMapperResponse.apply(user.getUserDetail())
 

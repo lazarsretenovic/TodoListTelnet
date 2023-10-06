@@ -76,6 +76,11 @@
             this.todoList = todoList;
         }
 
+        public List<TodoList> getTodoList() {
+            return todoList;
+        }
+
+
         @Override
         public String toString() {
             return "User{" +

@@ -5,6 +5,7 @@ import com.TenetTodoList.TodoList.domain.TodoList;
 import com.TenetTodoList.TodoList.dto.TodoListDTOResponse;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.mappers.TodoListDTOMapperResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class TodoServiceResponseImpl implements TodoServiceResponse {
     private final TodoRepository todoRepository;
-    private final TodoListDTOMapperResponse todoListDTOMapperResponse;
+    @Autowired
+    private TodoListDTOMapperResponse todoListDTOMapperResponse;
 
-    public TodoServiceResponseImpl(TodoRepository todoRepository, TodoListDTOMapperResponse todoListDTOMapperResponse) {
+    public TodoServiceResponseImpl(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
-        this.todoListDTOMapperResponse = todoListDTOMapperResponse;
     }
 
     @Override

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public class UserDetailDTOMapperRequest implements Function<UserDetail, UserDetailDTORequest> {
+public class UserDetailDTOMapperRequest {
     public UserDetailDTORequest apply(UserDetail userDetail){
         return new UserDetailDTORequest(
                 userDetail.getId(),

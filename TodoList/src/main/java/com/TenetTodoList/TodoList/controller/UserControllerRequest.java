@@ -1,9 +1,9 @@
 package com.TenetTodoList.TodoList.controller;
 
-import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import com.TenetTodoList.TodoList.dto.TodoListDTOResponse;
-import com.TenetTodoList.TodoList.services.TodoService;
+import com.TenetTodoList.TodoList.dto.UserDTORequest;
 import com.TenetTodoList.TodoList.services.TodoServiceResponse;
+import com.TenetTodoList.TodoList.services.UserServiceRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +13,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class TodoControllerResponse {
-    @Autowired
-    private TodoServiceResponse todoService;
+public class UserControllerRequest {
+    private final UserServiceRequest userServiceRequest;
 
+    public UserControllerRequest(UserServiceRequest userServiceRequest) {
+        this.userServiceRequest = userServiceRequest;
+    }
 
-
-    @GetMapping("/todolistresponse")
-    public List<TodoListDTOResponse> findAll() {
-        return todoService.findAll();
+    @GetMapping("/userrequest")
+    public List<UserDTORequest> findAll() {
+        return userServiceRequest.findAll();
     }
 }
