@@ -1,9 +1,9 @@
 package com.TenetTodoList.TodoList.dto;
 
-public record TodoListDTOResponse(
+public record TodoListDTORequest(
         int id,
         String description,
         String status,
-        UserDTOResponse user
+        UserDTORequest user
 ) {
 }

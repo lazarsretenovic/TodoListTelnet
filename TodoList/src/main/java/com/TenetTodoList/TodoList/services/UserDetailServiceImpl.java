@@ -2,6 +2,8 @@ package com.TenetTodoList.TodoList.services;
 
 import com.TenetTodoList.TodoList.dao.UserDetailRepository;
 import com.TenetTodoList.TodoList.dto.UserDetailDto;
+import com.TenetTodoList.TodoList.services.mappers.UserDetailDTOMapper;
+import com.TenetTodoList.TodoList.services.mappers.UserDetailDTOMapperReverse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

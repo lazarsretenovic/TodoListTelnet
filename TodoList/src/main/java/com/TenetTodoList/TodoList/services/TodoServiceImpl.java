@@ -4,6 +4,9 @@ import com.TenetTodoList.TodoList.dao.TodoRepository;
 import com.TenetTodoList.TodoList.domain.TodoList;
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
+import com.TenetTodoList.TodoList.services.mappers.TodoDTOMapper;
+import com.TenetTodoList.TodoList.services.mappers.TodoDTOMapperReverse;
+import com.TenetTodoList.TodoList.services.mappers.UserDTOMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
