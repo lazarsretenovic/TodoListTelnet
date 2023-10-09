@@ -1,10 +1,11 @@
 package com.TenetTodoList.TodoList.controller;
 
+import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.UserDTO;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,21 +18,20 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
-    }
 
+    }
     @GetMapping("/users")
     public List<UserDTO> findAll(){
         return userService.findAll();
     }
 
     @GetMapping("/users/{userId}")
-    public UserDTO getUser(@PathVariable int userId){
-        UserDTO theUser=userService.findById(userId);
-        if(theUser==null){
-            throw new ResourceNotFoundException("User with that id was not found:"+userId);
+    public UserDTO getUser(@PathVariable int userId) {
+        UserDTO theUser = userService.findById(userId);
+        if (theUser == null) {
+            throw new ResourceNotFoundException("User with that id was not found:" + userId);
         }
         return theUser;
-
     }
     @PostMapping("/users")
     public UserDTO addUser(@RequestBody UserDTO theUser){
