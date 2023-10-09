@@ -17,5 +17,5 @@ public class GlobalExceptionHandler {
                 .body("Resource not found: " + ex.getMessage());
     }
 
-    // You can add more @ExceptionHandler methods for other exceptions as needed
+
 }
