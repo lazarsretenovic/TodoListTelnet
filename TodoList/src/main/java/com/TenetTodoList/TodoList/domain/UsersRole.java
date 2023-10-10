@@ -8,10 +8,10 @@ import java.util.Set;
 @Table(name = "users")
 public class UsersRole {
     @Id
-    @Column(name = "username", length = 50, nullable = false)
+    @Column(name = "username",   nullable = false)
     private String username;
 
-    @Column(name = "password", length = 50, nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "enabled", nullable = false)

@@ -20,7 +20,7 @@ public class UserControllerRequest {
         this.userServiceRequest = userServiceRequest;
     }
 
-    @GetMapping("/userrequest")
+        @GetMapping("/userrequest")
     public List<UserDTORequest> findAll() {
         return userServiceRequest.findAll();
     }

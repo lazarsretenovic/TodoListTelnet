@@ -1,8 +1,6 @@
 package com.TenetTodoList.TodoList.controller;
 
-import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import com.TenetTodoList.TodoList.dto.TodoListDTOResponse;
-import com.TenetTodoList.TodoList.services.TodoService;
 import com.TenetTodoList.TodoList.services.TodoServiceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
