@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
         this.userDTOMapperReverse = userDTOMapperReverse;
         this.todoDTOMapper = todoDTOMapper;
     }
-
     @Override
     public List<UserDTO> findAll() {
         return userRepository.findAll()
@@ -46,15 +45,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
-        // Hash the user's password using BCrypt
-//        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
-//        userDTO.setPassword(hashedPassword);
 
-        // Convert UserDTO to User and save it
         User user = userDTOMapperReverse.apply(userDTO);
         userRepository.save(user);
 
-        // Return the saved UserDTO
         return userDTO;
     }
 

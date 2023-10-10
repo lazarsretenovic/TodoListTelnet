@@ -2,16 +2,16 @@
 
         import com.TenetTodoList.TodoList.dto.TodoListDTO;
         import jakarta.persistence.*;
-        import org.springframework.context.annotation.Bean;
         import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
         import org.springframework.security.crypto.password.PasswordEncoder;
-        //    import org.springframework.security.crypto.bcrypt.BCrypt;
 
         import java.util.ArrayList;
         import java.util.List;
         @Entity
         @Table(name = "user")
         public class User {
+            @Transient // Exclude from JPA persistence
+            private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             @Id
             @GeneratedValue(strategy = GenerationType.IDENTITY)
             @Column(name = "id")
@@ -71,7 +71,6 @@
             }
 
             public void setPassword(String password) {
-                PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                 this.password = passwordEncoder.encode(password);
 
             }
@@ -105,8 +104,4 @@
                 todoList.add(tempTodoList);
                 tempTodoList.setUser(this);
             }
-           @Bean
-           public PasswordEncoder passwordEncoder() {
-               return new BCryptPasswordEncoder();
-           }
         }
