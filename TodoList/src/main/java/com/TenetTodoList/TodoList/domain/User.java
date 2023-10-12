@@ -2,50 +2,87 @@
 
         import com.TenetTodoList.TodoList.dto.TodoListDTO;
         import jakarta.persistence.*;
-        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-        import org.springframework.security.crypto.password.PasswordEncoder;
+        import org.springframework.security.core.GrantedAuthority;
+        import org.springframework.security.core.userdetails.UserDetails;
 
         import java.util.ArrayList;
+        import java.util.Collection;
         import java.util.List;
         @Entity
         @Table(name = "user")
-        public class User {
-            @Transient // Exclude from JPA persistence
-            private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        public class User implements UserDetails {
             @Id
             @GeneratedValue(strategy = GenerationType.IDENTITY)
             @Column(name = "id")
             private int id;
-            @Column(name = "username")
-            private String username;
+            @Column(name = "username",unique = true)
+            private String user_name;
             @Column(name = "password")
             private String password;
+
             @OneToOne(cascade = CascadeType.ALL)
             @JoinColumn(name = "user_detail_id")
             private UserDetail userDetail;
-
+            @Enumerated(EnumType.STRING)
+            @Column(name = "role")
+            private Role role;
             @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH })
             private List<TodoList> todoList;
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                return null;
+            }
+
+            @Override
+            public String getUsername() {
+                // email in our case
+                return user_name;
+            }
+
+            @Override
+            public boolean isAccountNonExpired() {
+                return true;
+            }
+
+            @Override
+            public boolean isAccountNonLocked() {
+                return true;
+            }
+
+            @Override
+            public boolean isCredentialsNonExpired() {
+                return true;
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return true;
+            }
 
             public User() {
             }
-
+            public User(Role role) {
+                this.role = role;
+            }
+            public Role getRole() {
+                return role;
+            }
+            public void setRole(Role role) {
+                this.role = role;
+            }
             public UserDetail getUserDetail() {
                 return userDetail;
             }
-
             public void setUserDetail(UserDetail userDetail) {
                 this.userDetail = userDetail;
             }
-
-            public User(int id, String username, String password, UserDetail userDetail, TodoListDTO todoListDTO) {
+            public User(int id, String user_name, String password, UserDetail userDetail, TodoListDTO todoListDTO) {
             }
-
-            public User(int id, String username, String password, UserDetail userDetail) {
-                this.username = username;
+            public User(int id, String user_name, String password, UserDetail userDetail) {
+                this.user_name = user_name;
                 this.password = password;
+                this.userDetail = userDetail;
             }
-
             public User(List<TodoList> todoList) {
                 this.todoList = todoList;
             }
@@ -58,20 +95,22 @@
                 this.id = id;
             }
 
-            public String getUsername() {
-                return username;
+            public String getUser_name() {
+                return user_name;
             }
 
-            public void setUsername(String username) {
-                this.username = username;
+            public void setUser_name(String user_name) {
+                this.user_name = user_name;
             }
+
+
 
             public String getPassword() {
                 return password;
             }
 
             public void setPassword(String password) {
-                this.password = passwordEncoder.encode(password);
+                this.password = password;
 
             }
 
@@ -88,7 +127,7 @@
             public String toString() {
                 return "User{" +
                         "id=" + id +
-                        ", username='" + username + '\'' +
+                        ", username='" + user_name + '\'' +
                         ", password='" + password + '\'' +
                         ", userDetail='" + userDetail + '\'' +
 

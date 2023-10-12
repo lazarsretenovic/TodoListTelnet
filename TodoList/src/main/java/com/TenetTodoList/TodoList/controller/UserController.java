@@ -38,11 +38,24 @@ public class UserController {
         UserDTO user= userService.save(theUser);
         return user;
 }
-    @PutMapping("/users")
-    public UserDTO updateUser(@RequestBody UserDTO theUser){
-        UserDTO user=userService.save(theUser);
-        return  user;
+    @PutMapping("/users/{userId}")
+    public UserDTO updateUser(@PathVariable int userId, @RequestBody UserDTO updatedUser) {
+        UserDTO existingUser = userService.findById(userId);
+
+        if (existingUser == null) {
+            throw new ResourceNotFoundException("User with ID " + userId + " not found.");
+        }
+        UserDTO userToUpdate = new UserDTO(
+                userId, // Use the same ID to update the existing user
+                updatedUser.username(),
+                updatedUser.password(),
+                existingUser.user_detail() // You can also update the user_detail if needed
+        );
+        UserDTO updatedUserDTO = userService.save(userToUpdate);
+
+        return updatedUserDTO;
     }
+
     @DeleteMapping("/users/{userId}")
     public String deleteUser(@PathVariable int userId){
         UserDTO theUser=userService.findById(userId);

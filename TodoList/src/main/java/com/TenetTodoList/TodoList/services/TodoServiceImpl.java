@@ -18,13 +18,12 @@ public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
     private final TodoDTOMapper todoDTOMapper;
     private final TodoDTOMapperReverse todoDTOMapperReverse;
-    private final UserDTOMapper userDTOMapper;
+
 
     public TodoServiceImpl(TodoRepository todoRepository, TodoDTOMapper todoDTOMapper, TodoDTOMapperReverse todoDTOMapperReverse, UserDTOMapper userDTOMapper) {
         this.todoRepository = todoRepository;
         this.todoDTOMapper = todoDTOMapper;
         this.todoDTOMapperReverse = todoDTOMapperReverse;
-        this.userDTOMapper = userDTOMapper;
     }
 
     @Override
@@ -49,7 +48,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public TodoListDTO save(TodoListDTO todoListDTO) {
         TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
-        return todoListDTO;
+        return todoDTOMapper.apply(todoRepository.save(todoList));
     }
 
     @Override

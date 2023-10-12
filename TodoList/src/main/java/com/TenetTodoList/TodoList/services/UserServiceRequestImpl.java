@@ -30,13 +30,8 @@ public class UserServiceRequestImpl implements UserServiceRequest {
 
     @Override
     public UserDTORequest save(UserDTORequest userDTORequest) {
-        // Map UserDTORequest to your User entity using the reverse mapper
         com.TenetTodoList.TodoList.domain.User userEntity = userDTOMapperRequestReverse.map(userDTORequest);
-
-        // Save the entity
         com.TenetTodoList.TodoList.domain.User savedUserEntity = userRepository.save(userEntity);
-
-        // Map the saved entity back to UserDTORequest
         return userDTOMapperRequest.apply(savedUserEntity);
     }
 }

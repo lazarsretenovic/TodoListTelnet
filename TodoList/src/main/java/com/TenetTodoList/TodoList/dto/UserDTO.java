@@ -6,7 +6,7 @@ public record UserDTO (
         int id,
         String username,
         String password,
-        UserDetail user_detail
+        UserDetailDto user_detail
 
 ) {
 

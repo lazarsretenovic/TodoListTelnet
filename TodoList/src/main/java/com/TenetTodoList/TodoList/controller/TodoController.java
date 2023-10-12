@@ -1,6 +1,7 @@
 package com.TenetTodoList.TodoList.controller;
 
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
+import com.TenetTodoList.TodoList.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.TenetTodoList.TodoList.services.TodoService;
@@ -32,14 +33,25 @@ public class TodoController {
 }
 
     @PostMapping("/todolist")
-    public TodoListDTO addTodo(@RequestBody TodoListDTO theTodoList){
-        TodoListDTO todoList = todoService.save(theTodoList);
-        return todoList;
+    public TodoListDTO addTodo(@RequestBody TodoListDTO todoListDTO) {
+        // Ensure the user_id in TodoListDTO is set
+        UserDTO userDTO = todoListDTO.user();
+
+        if (userDTO == null || userDTO.id() == 0) {
+            // Handle the case where the user information is missing or invalid
+            throw new RuntimeException("User information is missing or invalid");
+        }
+
+        // The user_id field in TodoListDTO should be set to a valid user ID
+
+        // Now, save the TodoList
+        TodoListDTO savedTodo = todoService.save(todoListDTO);
+
+        return savedTodo;
     }
-    @PutMapping("/todolist")
-    public TodoListDTO updateTodo(@RequestBody TodoListDTO theTodoList){
-        TodoListDTO todoList =todoService.save(theTodoList);
-        return todoList;
+    @PutMapping("/{todolistId}")
+    public TodoListDTO updateTodo(@PathVariable int todolistId, @RequestBody TodoListDTO updatedTodo) {
+        return todoService.save(updatedTodo);
     }
     @DeleteMapping("/todolist/{todoListId}")
     public String deleteTodo(@PathVariable int todoListId){
