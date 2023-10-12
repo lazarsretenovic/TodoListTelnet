@@ -12,7 +12,7 @@ public class Authority {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
-    private User user;
+    private UserTodos userTodos;
 
     @Column(name = "authority")
     private String authority;
@@ -20,9 +20,9 @@ public class Authority {
     public Authority() {
     }
 
-    public Authority(Long id, User user, String authority) {
+    public Authority(Long id, UserTodos userTodos, String authority) {
         this.id = id;
-        this.user = user;
+        this.userTodos = userTodos;
         this.authority = authority;
     }
 
@@ -34,12 +34,12 @@ public class Authority {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UserTodos getUser() {
+        return userTodos;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserTodos userTodos) {
+        this.userTodos = userTodos;
     }
 
     public String getAuthority() {
@@ -54,7 +54,7 @@ public class Authority {
     public String toString() {
         return "Authority{" +
                 "id=" + id +
-                ", user=" + user +
+                ", user=" + userTodos +
                 ", authority='" + authority + '\'' +
                 '}';
     }

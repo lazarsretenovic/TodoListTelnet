@@ -1,6 +1,7 @@
 package com.TenetTodoList.TodoList.services;
 
 import com.TenetTodoList.TodoList.dao.UserRepository;
+import com.TenetTodoList.TodoList.domain.UserTodos;
 import com.TenetTodoList.TodoList.dto.UserDTORequest;
 import com.TenetTodoList.TodoList.services.mappers.UserDTOMapperRequest;
 import com.TenetTodoList.TodoList.services.mappers.UserDTOMapperRequestReverse;
@@ -30,8 +31,8 @@ public class UserServiceRequestImpl implements UserServiceRequest {
 
     @Override
     public UserDTORequest save(UserDTORequest userDTORequest) {
-        com.TenetTodoList.TodoList.domain.User userEntity = userDTOMapperRequestReverse.map(userDTORequest);
-        com.TenetTodoList.TodoList.domain.User savedUserEntity = userRepository.save(userEntity);
-        return userDTOMapperRequest.apply(savedUserEntity);
+        UserTodos userTodosEntity = userDTOMapperRequestReverse.map(userDTORequest);
+        UserTodos savedUserEntityTodos = userRepository.save(userTodosEntity);
+        return userDTOMapperRequest.apply(savedUserEntityTodos);
     }
 }

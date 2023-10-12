@@ -16,7 +16,7 @@ public class TodoList{
     private String status;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserTodos userTodos;
 
     public TodoList() {
     }
@@ -50,12 +50,12 @@ public class TodoList{
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    public UserTodos getUser() {
+        return userTodos;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserTodos userTodos) {
+        this.userTodos = userTodos;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.TenetTodoList.TodoList.services.mappers;
 
-import com.TenetTodoList.TodoList.domain.User;
+import com.TenetTodoList.TodoList.domain.UserTodos;
 import com.TenetTodoList.TodoList.dto.UserDTORequest;
 import com.TenetTodoList.TodoList.dto.TodoListDTORequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
-public class UserDTOMapperRequest implements Function<User, UserDTORequest> {
+public class UserDTOMapperRequest implements Function<UserTodos, UserDTORequest> {
 
     private final UserDetailDTOMapperRequest userDetailDTOMapperRequest;
     private final TodoListDTOMapperRequest todoListDTOMapperRequest;
@@ -24,16 +24,16 @@ public class UserDTOMapperRequest implements Function<User, UserDTORequest> {
         this.todoListDTOMapperRequest = todoListDTOMapperRequest;
     }
 
-    public UserDTORequest apply(User user) {
-        List<TodoListDTORequest> todoListDTOs = user.getTodoList().stream()
+    public UserDTORequest apply(UserTodos userTodos) {
+        List<TodoListDTORequest> todoListDTOs = userTodos.getTodoList().stream()
                 .map(todoListDTOMapperRequest::apply)
                 .collect(Collectors.toList());
 
         return new UserDTORequest(
-                user.getId(),
-                user.getUsername(),
-                user.getPassword(),
-                userDetailDTOMapperRequest.apply(user.getUserDetail()),
+                userTodos.getId(),
+                userTodos.getUsername(),
+                userTodos.getPassword(),
+                userDetailDTOMapperRequest.apply(userTodos.getUserDetail()),
                 todoListDTOs
         );
     }

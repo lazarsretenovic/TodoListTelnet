@@ -1,11 +1,9 @@
 package com.TenetTodoList.TodoList.controller;
 
-import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.UserDTO;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
