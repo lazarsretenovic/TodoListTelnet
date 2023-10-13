@@ -3,6 +3,7 @@ package com.TenetTodoList.TodoList.domain;
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import jakarta.persistence.*;
 import lombok.Builder;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,13 +13,13 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "user")
-public class UserTodos implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "username",unique = true)
-    private String user_name;
+    @Column(name = "loginname",unique = true)
+    private String loginname;
     @Column(name = "password")
     private String password;
 
@@ -30,6 +31,13 @@ public class UserTodos implements UserDetails {
     private Role role;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH })
     private List<TodoList> todoList;
+
+    public User(String loginname, String password, Role role) {
+        this.loginname = loginname;
+        this.password = password;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -38,7 +46,7 @@ public class UserTodos implements UserDetails {
     @Override
     public String getUsername() {
         // email in our case
-        return user_name;
+        return loginname;
     }
 
     @Override
@@ -61,9 +69,9 @@ public class UserTodos implements UserDetails {
         return true;
     }
 
-    public UserTodos() {
+    public User() {
     }
-    public UserTodos(Role role) {
+    public User(Role role) {
         this.role = role;
     }
     public Role getRole() {
@@ -78,23 +86,23 @@ public class UserTodos implements UserDetails {
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
     }
-    public UserTodos(int id, String user_name, String password, UserDetail userDetail, TodoListDTO todoListDTO) {
+    public User(int id, String loginname, String password, UserDetail userDetail, TodoListDTO todoListDTO) {
     }
-    public UserTodos(int id, String user_name, String password, UserDetail userDetail, Role role, List<TodoList> todoList) {
+    public User(int id, String loginname, String password, UserDetail userDetail, Role role, List<TodoList> todoList) {
         this.id = id;
-        this.user_name = user_name;
+        this.loginname = loginname;
         this.password = password;
         this.userDetail = userDetail;
         this.role = role;
         this.todoList = todoList;
     }
 
-    public UserTodos(int id, String user_name, String password, UserDetail userDetail) {
-        this.user_name = user_name;
+    public User(int id, String loginname, String password, UserDetail userDetail) {
+        this.loginname = loginname;
         this.password = password;
         this.userDetail = userDetail;
     }
-    public UserTodos(List<TodoList> todoList) {
+    public User(List<TodoList> todoList) {
         this.todoList = todoList;
     }
 
@@ -106,12 +114,12 @@ public class UserTodos implements UserDetails {
         this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getLoginname() {
+        return loginname;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setLoginname(String loginname) {
+        this.loginname = loginname;
     }
 
 
@@ -138,7 +146,7 @@ public class UserTodos implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + user_name + '\'' +
+                ", login_name='" + loginname + '\'' +
                 ", password='" + password + '\'' +
                 ", userDetail='" + userDetail + '\'' +
 

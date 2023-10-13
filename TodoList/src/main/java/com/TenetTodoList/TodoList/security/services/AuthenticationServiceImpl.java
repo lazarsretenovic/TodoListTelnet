@@ -1,6 +1,6 @@
 package com.TenetTodoList.TodoList.security.services;
 
-import com.TenetTodoList.TodoList.domain.UserTodos;
+import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.domain.Role;
 import com.TenetTodoList.TodoList.security.*;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private UserSecurityRepository userSecurityRepository;
+    private final UserSecurityRepository userSecurityRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -21,10 +21,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
+
     @Override
     public JwtAuthenticationResponse signup(SignUpRequest request) {
-        var user = UserTodos.builder()
-                .user_name(request.getUsername())
+        var user = User.builder()
+                .loginname(request.getLogin_name())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
@@ -36,9 +37,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public JwtAuthenticationResponse signin(SinginRequest request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUser_name(), request.getPassword()));
-        var user = userSecurityRepository.findByUsername(request.getUser_name())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password."));
+                new UsernamePasswordAuthenticationToken(
+                        request.getLogin_name(),
+                        request.getPassword()));
+        var user = userSecurityRepository.findByLoginname(request.getLogin_name())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid login name or password."));
         var jwt = jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }

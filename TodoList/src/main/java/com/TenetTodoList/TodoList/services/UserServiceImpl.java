@@ -1,7 +1,7 @@
 package com.TenetTodoList.TodoList.services;
 
 import com.TenetTodoList.TodoList.dao.UserRepository;
-import com.TenetTodoList.TodoList.domain.UserTodos;
+import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.UserDTO;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.mappers.TodoDTOMapper;
@@ -34,10 +34,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findById(int theId) {
-        Optional<UserTodos> result = userRepository.findById(theId);
+        Optional<User> result = userRepository.findById(theId);
         if (result.isPresent()) {
-            UserTodos userTodos = result.get();
-            return userDTOMapper.apply(userTodos);
+            User user = result.get();
+            return userDTOMapper.apply(user);
         } else {
             throw new ResourceNotFoundException("Did not find User with the id of " + theId);
         }
@@ -45,15 +45,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
-        UserTodos userTodos = userDTOMapperReverse.apply(userDTO);
-        Optional<UserTodos> existingUser = userRepository.findById(userTodos.getId());
+        User user = userDTOMapperReverse.apply(userDTO);
+        Optional<User> existingUser = userRepository.findById(user.getId());
         if (existingUser.isPresent()) {
-            UserTodos updatedUserTodos = existingUser.get();
-            updatedUserTodos.setUser_name(userTodos.getUser_name());
-            updatedUserTodos.setPassword(userTodos.getPassword());
-            userRepository.save(updatedUserTodos);
+            User updatedUser = existingUser.get();
+            updatedUser.getLoginname();
+            updatedUser.setPassword(user.getPassword());
+            userRepository.save(updatedUser);
         } else {
-            userRepository.save(userTodos);
+            userRepository.save(user);
         }
         return userDTO;
     }

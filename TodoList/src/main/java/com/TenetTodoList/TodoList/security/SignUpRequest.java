@@ -4,24 +4,24 @@ import lombok.Builder;
 
 @Builder
 public class SignUpRequest {
-    private String username;
+    private String login_name;
     private String password;
 
     public SignUpRequest() {
     }
 
-    public SignUpRequest(String firstName, String lastName, String username, String password) {
+    public SignUpRequest(String firstName, String lastName, String login_name, String password) {
 
-        this.username = username;
+        this.login_name = login_name;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin_name() {
+        return login_name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin_name(String login_name) {
+        this.login_name = login_name;
     }
 
     public String getPassword() {
@@ -32,8 +32,8 @@ public class SignUpRequest {
         this.password = password;
     }
 
-    public SignUpRequest(String username, String password) {
-        this.username = username;
+    public SignUpRequest(String login_name, String password) {
+        this.login_name = login_name;
         this.password = password;
     }
 }

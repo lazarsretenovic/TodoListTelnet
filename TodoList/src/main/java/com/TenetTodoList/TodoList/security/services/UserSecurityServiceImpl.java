@@ -1,7 +1,5 @@
 package com.TenetTodoList.TodoList.security.services;
 
-import com.TenetTodoList.TodoList.security.services.UserSecurityRepository;
-import com.TenetTodoList.TodoList.security.services.UserSecurityService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +18,7 @@ public class UserSecurityServiceImpl implements UserSecurityService {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) {
-                return userRepository.findByUsername(username)
+                return userRepository.findByLoginname(username)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
