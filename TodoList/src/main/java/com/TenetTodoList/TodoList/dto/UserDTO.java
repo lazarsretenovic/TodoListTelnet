@@ -4,7 +4,7 @@ import com.TenetTodoList.TodoList.domain.UserDetail;
 
 public record UserDTO (
         int id,
-        String username,
+        String login_name,
         String password,
         UserDetailDto user_detail
 

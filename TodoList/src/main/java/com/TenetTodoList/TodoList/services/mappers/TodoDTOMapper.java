@@ -19,7 +19,7 @@ public class TodoDTOMapper implements Function<TodoList, TodoListDTO> {
                 todoList.getId(),
                 todoList.getDescription(),
                 todoList.getStatus(),
-               userDTOMapper.apply(todoList.getUser())
+                userDTOMapper.apply(todoList.getUser())
         );
     }
 

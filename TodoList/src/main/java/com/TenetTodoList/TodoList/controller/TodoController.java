@@ -1,7 +1,10 @@
 package com.TenetTodoList.TodoList.controller;
 
+import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import com.TenetTodoList.TodoList.dto.UserDTO;
+import com.TenetTodoList.TodoList.services.UserService;
+import com.TenetTodoList.TodoList.services.mappers.UserDTOMapperReverse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.TenetTodoList.TodoList.services.TodoService;
@@ -12,10 +15,13 @@ import java.util.List;
 @RequestMapping("/api")
 public class TodoController {
     private final TodoService todoService;
-
+private final UserService userService;
+private final UserDTOMapperReverse userDTOMapperReverse;
     @Autowired
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoService todoService, UserService userService, UserDTOMapperReverse userDTOMapperReverse) {
         this.todoService = todoService;
+        this.userService = userService;
+        this.userDTOMapperReverse = userDTOMapperReverse;
     }
 
     @GetMapping("/todolist")
@@ -34,22 +40,28 @@ public class TodoController {
 
     @PostMapping("/todolist")
     public TodoListDTO addTodo(@RequestBody TodoListDTO todoListDTO) {
-        // Ensure the user_id in TodoListDTO is set
         UserDTO userDTO = todoListDTO.user();
 
         if (userDTO == null || userDTO.id() == 0) {
-            // Handle the case where the user information is missing or invalid
-            throw new RuntimeException("User information is missing or invalid");
+            throw new RuntimeException("Invalid information");
         }
 
-        // The user_id field in TodoListDTO should be set to a valid user ID
+        // You need a method to convert UserDTO to User
+        User user = userDTOMapperReverse.apply(userDTO);
 
-        // Now, save the TodoList
-        TodoListDTO savedTodo = todoService.save(todoListDTO);
+        // Create a new TodoList entity
+        TodoListDTO newTodo = new TodoListDTO(
+                0,
+                todoListDTO.description(),
+                todoListDTO.status(),
+                userDTO
+        );
 
-        return savedTodo;
+        return todoService.save(newTodo);
     }
-    @PutMapping("/{todolistId}")
+
+
+    @PutMapping("/todolist/{todolistId}")
     public TodoListDTO updateTodo(@PathVariable int todolistId, @RequestBody TodoListDTO updatedTodo) {
         return todoService.save(updatedTodo);
     }

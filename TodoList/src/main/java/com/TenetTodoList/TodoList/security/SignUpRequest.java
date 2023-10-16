@@ -1,19 +1,23 @@
 package com.TenetTodoList.TodoList.security;
 
+import com.TenetTodoList.TodoList.domain.UserDetail;
 import lombok.Builder;
 
 @Builder
 public class SignUpRequest {
     private String login_name;
     private String password;
+    private UserDetail userDetail;
 
     public SignUpRequest() {
     }
 
-    public SignUpRequest(String firstName, String lastName, String login_name, String password) {
+
+    public SignUpRequest(String login_name, String password,UserDetail userDetail) {
 
         this.login_name = login_name;
         this.password = password;
+        this.userDetail = userDetail;
     }
 
     public String getLogin_name() {
@@ -32,8 +36,12 @@ public class SignUpRequest {
         this.password = password;
     }
 
-    public SignUpRequest(String login_name, String password) {
-        this.login_name = login_name;
-        this.password = password;
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 }

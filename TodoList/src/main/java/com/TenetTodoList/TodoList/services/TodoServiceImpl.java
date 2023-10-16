@@ -48,7 +48,18 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public TodoListDTO save(TodoListDTO todoListDTO) {
         TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
-        return todoDTOMapper.apply(todoRepository.save(todoList));
+        Optional<TodoList> existingTodo= todoRepository.findById(todoList.getId());
+        if(existingTodo.isPresent()){
+            TodoList updateTodo= existingTodo.get();
+            updateTodo.setId(todoList.getId());
+            updateTodo.setDescription(todoList.getDescription());
+            updateTodo.setStatus(todoList.getStatus());
+            updateTodo.setUser(existingTodo.get().getUser());
+            todoRepository.save(updateTodo);
+        }
+        else {todoRepository.save(todoList);
+        }
+        return todoDTOMapper.apply(todoList);
     }
 
     @Override

@@ -44,10 +44,10 @@ public class UserController {
             throw new ResourceNotFoundException("User with ID " + userId + " not found.");
         }
         UserDTO userToUpdate = new UserDTO(
-                userId, // Use the same ID to update the existing user
-                updatedUser.username(),
+                userId,
+                updatedUser.login_name(),
                 updatedUser.password(),
-                existingUser.user_detail() // You can also update the user_detail if needed
+                existingUser.user_detail()
         );
         UserDTO updatedUserDTO = userService.save(userToUpdate);
 

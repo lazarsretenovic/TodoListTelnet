@@ -21,7 +21,7 @@ public class TodoList{
     public TodoList() {
     }
 
-    public TodoList(int id, String description, String status, UserDTO user) {
+    public TodoList(int id, String description, String status, User user) {
         this.description = description;
         this.status = status;
     }
@@ -60,10 +60,11 @@ public class TodoList{
 
     @Override
     public String toString() {
-        return "Todo{" +
+        return "TodoList{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
+                ", user=" + user +
                 '}';
     }
 }

@@ -16,13 +16,12 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserDTOMapper userDTOMapper;
     private final UserDTOMapperReverse userDTOMapperReverse;
-    private final TodoDTOMapper todoDTOMapper;
+
 
     public UserServiceImpl(UserRepository userRepository, UserDTOMapper userDTOMapper, UserDTOMapperReverse userDTOMapperReverse, TodoDTOMapper todoDTOMapper) {
         this.userRepository = userRepository;
         this.userDTOMapper = userDTOMapper;
         this.userDTOMapperReverse = userDTOMapperReverse;
-        this.todoDTOMapper = todoDTOMapper;
     }
     @Override
     public List<UserDTO> findAll() {
@@ -49,14 +48,18 @@ public class UserServiceImpl implements UserService {
         Optional<User> existingUser = userRepository.findById(user.getId());
         if (existingUser.isPresent()) {
             User updatedUser = existingUser.get();
-            updatedUser.getLoginname();
+            updatedUser.setLoginname(user.getLoginname());
             updatedUser.setPassword(user.getPassword());
+            updatedUser.setUserDetail(user.getUserDetail());
+            user.setId(existingUser.get().getId());
+
             userRepository.save(updatedUser);
         } else {
             userRepository.save(user);
         }
-        return userDTO;
+        return userDTOMapper.apply(user);
     }
+
 
 
     @Override
