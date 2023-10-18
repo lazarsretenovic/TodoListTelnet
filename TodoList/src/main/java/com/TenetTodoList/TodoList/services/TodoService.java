@@ -10,8 +10,9 @@ public interface TodoService {
     List<TodoListDTO> findAll();
 
     TodoListDTO findById(int theId);
-
+    TodoListDTO savenew(TodoListDTO todoList);
     TodoListDTO save(TodoListDTO todoList);
+
 
     void deleteById(int theId);
 

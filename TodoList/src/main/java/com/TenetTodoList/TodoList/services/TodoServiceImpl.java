@@ -1,7 +1,9 @@
 package com.TenetTodoList.TodoList.services;
 
 import com.TenetTodoList.TodoList.dao.TodoRepository;
+import com.TenetTodoList.TodoList.dao.UserRepository;
 import com.TenetTodoList.TodoList.domain.TodoList;
+import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.mappers.TodoDTOMapper;
@@ -18,12 +20,14 @@ public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
     private final TodoDTOMapper todoDTOMapper;
     private final TodoDTOMapperReverse todoDTOMapperReverse;
+    private final UserRepository userRepository;
 
 
-    public TodoServiceImpl(TodoRepository todoRepository, TodoDTOMapper todoDTOMapper, TodoDTOMapperReverse todoDTOMapperReverse, UserDTOMapper userDTOMapper) {
+    public TodoServiceImpl(TodoRepository todoRepository, TodoDTOMapper todoDTOMapper, TodoDTOMapperReverse todoDTOMapperReverse, UserDTOMapper userDTOMapper, UserRepository userRepository) {
         this.todoRepository = todoRepository;
         this.todoDTOMapper = todoDTOMapper;
         this.todoDTOMapperReverse = todoDTOMapperReverse;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -44,29 +48,36 @@ public class TodoServiceImpl implements TodoService {
             throw new ResourceNotFoundException("Did not find Todo with the id of " + theId);
         }
     }
+    @Override
+    public TodoListDTO savenew(TodoListDTO todoListDTO) {
+        TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
+        User user = userRepository.findById(todoListDTO.user().id())
+                .orElseThrow(() -> new ResourceNotFoundException("User with ID " + todoListDTO.user().id() + " not found"));
+        todoList.setUser(user);
+        TodoList savedTodoList = todoRepository.save(todoList);
+        return todoDTOMapper.apply(savedTodoList);
+    }
 
     @Override
     public TodoListDTO save(TodoListDTO todoListDTO) {
-        TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
-        Optional<TodoList> existingTodo= todoRepository.findById(todoList.getId());
+
+        Optional<TodoList> existingTodo= todoRepository.findById(todoListDTO.id());
         if(existingTodo.isPresent()){
-            TodoList updateTodo= existingTodo.get();
-            updateTodo.setId(todoList.getId());
-            updateTodo.setDescription(todoList.getDescription());
-            updateTodo.setStatus(todoList.getStatus());
-            updateTodo.setUser(existingTodo.get().getUser());
-            todoRepository.save(updateTodo);
+            existingTodo.get().setDescription(todoListDTO.description());
+            existingTodo.get().setStatus(todoListDTO.status());
+            return todoDTOMapper.apply(todoRepository.save(existingTodo.get()));
         }
-        else {todoRepository.save(todoList);
+        else {
+            TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
+            todoRepository.save(todoList);
+            return todoDTOMapper.apply(todoList);
         }
-        return todoDTOMapper.apply(todoList);
     }
 
     @Override
     public void deleteById(int theId) {
         todoRepository.deleteById(theId);
     }
-
 
 
 

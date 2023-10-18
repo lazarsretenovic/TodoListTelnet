@@ -12,15 +12,7 @@ import java.util.function.Function;
 
 @Component
 public class TodoDTOMapperReverse implements Function<TodoListDTO, TodoList> {
-
-    private final UserDTOMapper userDTOMapper;
-    private final UserDetailDTOMapper userDetailMapper;
-
-    public TodoDTOMapperReverse(UserDTOMapper userDTOMapper, UserDetailDTOMapper userDetailMapper) {
-        this.userDTOMapper = userDTOMapper;
-        this.userDetailMapper = userDetailMapper;
-    }
-
+@Override
     public TodoList apply(TodoListDTO todoListDTO){
         UserDTO userDTO= todoListDTO.user();
         UserDetailDto userDetailDto = userDTO.user_detail();
@@ -40,7 +32,7 @@ public class TodoDTOMapperReverse implements Function<TodoListDTO, TodoList> {
         return new TodoList(
                 todoListDTO.id(),
                 todoListDTO.description(),
-                todoListDTO.description(),
+                todoListDTO.status(),
                 user
         );
     }

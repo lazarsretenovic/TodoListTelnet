@@ -44,22 +44,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
-        User user = userDTOMapperReverse.apply(userDTO);
-        Optional<User> existingUser = userRepository.findById(user.getId());
+        Optional<User> existingUser = userRepository.findById(userDTO.id());
         if (existingUser.isPresent()) {
-            User updatedUser = existingUser.get();
-            updatedUser.setLoginname(user.getLoginname());
-            updatedUser.setPassword(user.getPassword());
-            updatedUser.setUserDetail(user.getUserDetail());
-            user.setId(existingUser.get().getId());
 
-            userRepository.save(updatedUser);
-        } else {
-            userRepository.save(user);
+            existingUser.get().setLoginname(userDTO.login_name());
+            existingUser.get().setPassword(userDTO.password());
+            existingUser.get().setRole(userDTO.role());
+            return userDTOMapper.apply(userRepository.save(existingUser.get()));
         }
-        return userDTOMapper.apply(user);
-    }
+        else {
+          User user= userDTOMapperReverse.apply(userDTO);
+          userRepository.save(user);
+          return userDTOMapper.apply(user);
+        }
 
+    }
 
 
     @Override

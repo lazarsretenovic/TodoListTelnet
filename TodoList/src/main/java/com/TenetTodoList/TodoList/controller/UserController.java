@@ -47,11 +47,11 @@ public class UserController {
                 userId,
                 updatedUser.login_name(),
                 updatedUser.password(),
+                updatedUser.role(),
                 existingUser.user_detail()
         );
-        UserDTO updatedUserDTO = userService.save(userToUpdate);
 
-        return updatedUserDTO;
+        return userService.save(userToUpdate);
     }
 
     @DeleteMapping("/users/{userId}")

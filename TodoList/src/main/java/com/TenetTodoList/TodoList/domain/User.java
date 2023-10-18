@@ -45,7 +45,6 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        // email in our case
         return loginname;
     }
 
@@ -114,7 +113,7 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getLoginname() {
+    public String getLoginname(String s) {
         return loginname;
     }
 
