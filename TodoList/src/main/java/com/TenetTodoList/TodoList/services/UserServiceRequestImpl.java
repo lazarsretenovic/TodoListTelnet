@@ -1,12 +1,9 @@
 package com.TenetTodoList.TodoList.services;
 
 import com.TenetTodoList.TodoList.dao.UserRepository;
-import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.UserDTORequest;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.mappers.UserDTOMapperRequest;
-import com.TenetTodoList.TodoList.services.mappers.UserDTOMapperRequestReverse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,14 +11,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceRequestImpl implements UserServiceRequest {
+public final UserRepository userRepository;
+public final UserDTOMapperRequest userDTOMapperRequest;
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserDTOMapperRequest userDTOMapperRequest;
-    @Autowired
-    private UserDTOMapperRequestReverse userDTOMapperRequestReverse;
-
+    public UserServiceRequestImpl(UserRepository userRepository, UserDTOMapperRequest userDTOMapperRequest) {
+        this.userRepository = userRepository;
+        this.userDTOMapperRequest = userDTOMapperRequest;
+    }
     @Override
     public List<UserDTORequest> findAll() {
         try {
@@ -33,6 +29,4 @@ public class UserServiceRequestImpl implements UserServiceRequest {
             throw new ResourceNotFoundException("Error while fetching User data", e);
         }
     }
-
-
 }

@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("Error while fetching data for users", e);
         }
     }
-
-
     @Override
     public UserDTO findById(int theId) {
         Optional<User> result = userRepository.findById(theId);
@@ -50,7 +48,6 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("Did not find User with the id of " + theId);
         }
     }
-
     @Override
     public UserDTO save(UserDTO userDTO) {
         try {
@@ -71,9 +68,6 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("Error while saving User with the ID of:" + userDTO.id(), e);
         }
     }
-
-
-
     @Override
     public void deleteById(int theId) {
         try {

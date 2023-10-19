@@ -12,8 +12,7 @@ public class UserDTOMapperRequestReverse {
     public User map(UserDTORequest userDTO) {
         User user = new User();
         user.setId(userDTO.id());
-        user.setLoginname(userDTO.username());
-        user.setPassword(userDTO.password());
+        user.setLoginname(userDTO.login_name());
         user.setTodoList(userDTO.todos()
                 .stream()
                 .map(todoDTO -> {

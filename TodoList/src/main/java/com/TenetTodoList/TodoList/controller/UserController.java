@@ -11,18 +11,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-    @Autowired
     private final UserService userService;
-
     public UserController(UserService userService) {
         this.userService = userService;
-
     }
     @GetMapping("/users")
     public List<UserDTO> findAll(){
         return userService.findAll();
     }
-
     @GetMapping("/users/{userId}")
     public UserDTO getUser(@PathVariable int userId) {
         UserDTO theUser = userService.findById(userId);
@@ -39,7 +35,6 @@ public class UserController {
     @PutMapping("/users/{userId}")
     public UserDTO updateUser(@PathVariable int userId, @RequestBody UserDTO updatedUser) {
         UserDTO existingUser = userService.findById(userId);
-
         if (existingUser == null) {
             throw new ResourceNotFoundException("User with ID " + userId + " not found.");
         }
@@ -53,7 +48,6 @@ public class UserController {
 
         return userService.save(userToUpdate);
     }
-
     @DeleteMapping("/users/{userId}")
     public String deleteUser(@PathVariable int userId){
         UserDTO theUser=userService.findById(userId);

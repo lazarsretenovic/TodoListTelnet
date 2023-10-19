@@ -16,14 +16,10 @@ public class UserDTOMapperRequest implements Function<User, UserDTORequest> {
     private final UserDetailDTOMapperRequest userDetailDTOMapperRequest;
     private final TodoListDTOMapperRequest todoListDTOMapperRequest;
 
-    @Autowired
-    public UserDTOMapperRequest(
-            UserDetailDTOMapperRequest userDetailDTOMapperRequest,
-            TodoListDTOMapperRequest todoListDTOMapperRequest) {
+    public UserDTOMapperRequest(UserDetailDTOMapperRequest userDetailDTOMapperRequest, TodoListDTOMapperRequest todoListDTOMapperRequest) {
         this.userDetailDTOMapperRequest = userDetailDTOMapperRequest;
         this.todoListDTOMapperRequest = todoListDTOMapperRequest;
     }
-
     public UserDTORequest apply(User user) {
         List<TodoListDTORequest> todoListDTOs = user.getTodoList().stream()
                 .map(todoListDTOMapperRequest::apply)
@@ -32,7 +28,6 @@ public class UserDTOMapperRequest implements Function<User, UserDTORequest> {
         return new UserDTORequest(
                 user.getId(),
                 user.getUsername(),
-                user.getPassword(),
                 userDetailDTOMapperRequest.apply(user.getUserDetail()),
                 todoListDTOs
         );

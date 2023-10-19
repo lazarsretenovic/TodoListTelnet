@@ -84,7 +84,6 @@ public class TodoServiceImpl implements TodoService {
             throw new ResourceNotFoundException("Error while updating todo_List with ID " + todoListDTO.id(), e);
         }
     }
-
     @Override
     public void deleteById(int theId) {
         try {

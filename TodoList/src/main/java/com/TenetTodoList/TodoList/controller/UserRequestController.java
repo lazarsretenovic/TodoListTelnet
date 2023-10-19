@@ -10,11 +10,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserRequestController {
     private final UserServiceRequest userServiceRequest;
-
     public UserRequestController(UserServiceRequest userServiceRequest) {
         this.userServiceRequest = userServiceRequest;
     }
-
     @GetMapping("/user_request")
     public List<UserDTORequest> findAll() {
         return userServiceRequest.findAll();

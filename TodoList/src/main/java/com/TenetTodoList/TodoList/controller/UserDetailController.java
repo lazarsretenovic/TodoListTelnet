@@ -12,13 +12,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class UserDetailController {
-    @Autowired
     private final UserDetailService userDetailService;
-
     public UserDetailController(UserDetailService userDetailService) {
         this.userDetailService = userDetailService;
     }
-
     @GetMapping("/user_details")
     public List<UserDetailDto> findAll() {
         return userDetailService.findAll();
@@ -32,7 +29,6 @@ public class UserDetailController {
         }
         return userDetailDto;
     }
-
     @PostMapping("/user_details")
     public UserDetailDto addUser(@RequestBody UserDetailDto theUser) {
         UserDetailDto user = userDetailService.save(theUser);

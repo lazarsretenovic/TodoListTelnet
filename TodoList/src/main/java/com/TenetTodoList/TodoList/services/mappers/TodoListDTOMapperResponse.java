@@ -16,7 +16,6 @@ public class TodoListDTOMapperResponse implements Function<TodoList, TodoListDTO
         this.userDTOMapperResponse = userDTOMapperResponse;
     }
 
-
     public TodoListDTOResponse apply(TodoList todoList){
         return new TodoListDTOResponse(
                 todoList.getId(),

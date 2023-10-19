@@ -15,21 +15,14 @@ import java.util.List;
 @RequestMapping("/api")
 public class TodoController {
     private final TodoService todoService;
-
-    private final UserDTOMapperReverse userDTOMapperReverse;
-
     @Autowired
     public TodoController(TodoService todoService, UserDTOMapperReverse userDTOMapperReverse) {
         this.todoService = todoService;
-
-        this.userDTOMapperReverse = userDTOMapperReverse;
     }
-
     @GetMapping("/todo_list")
     public List<TodoListDTO> findAll() {
         return todoService.findAll();
     }
-
     @GetMapping("/todo_list/{todolistId}")
     public TodoListDTO getTodo(@PathVariable int todolistId) {
         TodoListDTO theTodoList = todoService.findById(todolistId);
@@ -38,9 +31,6 @@ public class TodoController {
         }
         return theTodoList;
     }
-
-
-
     @PostMapping("/todo_list")
     public TodoListDTO addTodo(@RequestBody TodoListDTO todoListDTO){
         TodoListDTO todoList=todoService.savenew(todoListDTO);

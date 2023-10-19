@@ -11,12 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class TodoControllerResponse {
-    @Autowired
+public class TodoResponseController {
     private TodoServiceResponse todoService;
-
-
-
     @GetMapping("/todo_list_response")
     public List<TodoListDTOResponse> findAll() {
         return todoService.findAll();
