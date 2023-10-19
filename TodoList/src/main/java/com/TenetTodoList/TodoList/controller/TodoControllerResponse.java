@@ -17,7 +17,7 @@ public class TodoControllerResponse {
 
 
 
-    @GetMapping("/todolistresponse")
+    @GetMapping("/todo_list_response")
     public List<TodoListDTOResponse> findAll() {
         return todoService.findAll();
     }

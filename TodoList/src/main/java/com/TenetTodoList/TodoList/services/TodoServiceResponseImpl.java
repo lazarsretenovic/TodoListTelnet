@@ -23,20 +23,14 @@ public class TodoServiceResponseImpl implements TodoServiceResponse {
 
     @Override
     public List<TodoListDTOResponse> findAll() {
-        return todoRepository.findAll()
-                .stream()
-                .map(todoListDTOMapperResponse::apply)
-                .collect(Collectors.toList());
-
+        try {
+            return todoRepository.findAll()
+                    .stream()
+                    .map(todoListDTOMapperResponse::apply)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Error while fetching response todo_List", e);
+        }
     }
-
-//    @Override
-//    public TodoListDTOResponse findById(int theId) {
-//            TodoListDTOResponse todoListDTO = todoRepository.findById(theId)
-//                    .orElseThrow(() -> new ResourceNotFoundException("Did not find Todo with the id of " + theId));
-//
-//            return todoListDTOMapperResponse.apply(todoListDTO);
-//        }
-//    }
 
 }

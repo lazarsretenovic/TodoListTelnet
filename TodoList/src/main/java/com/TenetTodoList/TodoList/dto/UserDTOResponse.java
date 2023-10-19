@@ -1,9 +1,8 @@
 package com.TenetTodoList.TodoList.dto;
 
 public record UserDTOResponse(
-        int id,
-        String username,
+        Integer id,
+        String login_name,
         UserDetailDTOResponse details
 ) {
-
 }

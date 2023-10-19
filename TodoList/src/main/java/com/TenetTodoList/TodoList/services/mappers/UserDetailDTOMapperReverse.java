@@ -8,18 +8,16 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public class UserDetailDTOMapperReverse implements Function<UserDTO, UserDetail> {
+public class UserDetailDTOMapperReverse implements Function<UserDetailDto, UserDetail> {
     @Override
-    public UserDetail apply(UserDTO userDTO) {
-        UserDetailDto userDetailDto = userDTO.user_detail();  // Correct the field name here
-        UserDetail userDetail = new UserDetail(
+    public UserDetail apply(UserDetailDto userDetailDto) {
+        return new UserDetail(
                 userDetailDto.id(),
-                userDetailDto.firstName(),
-                userDetailDto.lastName(),
+                userDetailDto.first_name(),
+                userDetailDto.last_name(),
                 userDetailDto.email(),
                 userDetailDto.city()
         );
 
-        return userDetail;
     }
 }

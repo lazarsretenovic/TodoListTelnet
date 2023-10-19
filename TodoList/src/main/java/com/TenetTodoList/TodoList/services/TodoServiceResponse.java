@@ -6,8 +6,7 @@ import com.TenetTodoList.TodoList.services.mappers.TodoListDTOMapperResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface TodoServiceResponse {
     List<TodoListDTOResponse> findAll();
-//    TodoListDTOResponse findById(int theId);
 }

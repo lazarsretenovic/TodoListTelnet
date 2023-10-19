@@ -14,8 +14,8 @@ public class UserDTOMapperReverse implements Function<UserDTO, User> {
         UserDetailDto userDetailDto = userDTO.user_detail();
         UserDetail userDetail = new UserDetail(
                 userDetailDto.id(),
-                userDetailDto.firstName(),
-                userDetailDto.lastName(),
+                userDetailDto.first_name(),
+                userDetailDto.last_name(),
                 userDetailDto.email(),
                 userDetailDto.city()
         );

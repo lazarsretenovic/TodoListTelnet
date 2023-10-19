@@ -1,6 +1,5 @@
 package com.TenetTodoList.TodoList.domain;
 
-import com.TenetTodoList.TodoList.dto.UserDTO;
 import jakarta.persistence.*;
 
 @Entity

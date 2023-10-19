@@ -1,7 +1,7 @@
 package com.TenetTodoList.TodoList.dto;
 
 public record TodoListDTO(
-        int id,
+        Integer id,
         String description,
         String status,
         UserDTO user

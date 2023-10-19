@@ -6,8 +6,6 @@ import com.TenetTodoList.TodoList.dto.UserDTORequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
 public interface UserServiceRequest {
     List<UserDTORequest> findAll();
-    UserDTORequest save(UserDTORequest userDTORequest);
 }

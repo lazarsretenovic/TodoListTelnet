@@ -32,10 +32,14 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<TodoListDTO> findAll() {
-        return  todoRepository.findAll()
-                .stream()
-                .map(todoDTOMapper::apply)
-                .collect(Collectors.toList());
+        try {
+            return todoRepository.findAll()
+                    .stream()
+                    .map(todoDTOMapper::apply)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Error while fetching todo_List", e);
+        }
     }
 
     @Override
@@ -50,35 +54,45 @@ public class TodoServiceImpl implements TodoService {
     }
     @Override
     public TodoListDTO savenew(TodoListDTO todoListDTO) {
-        TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
-        User user = userRepository.findById(todoListDTO.user().id())
-                .orElseThrow(() -> new ResourceNotFoundException("User with ID " + todoListDTO.user().id() + " not found"));
-        todoList.setUser(user);
-        TodoList savedTodoList = todoRepository.save(todoList);
-        return todoDTOMapper.apply(savedTodoList);
+        try {
+            TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
+            User user = userRepository.findById(todoListDTO.user().id())
+                    .orElseThrow(() -> new ResourceNotFoundException("User with ID " + todoListDTO.user().id() + " not found"));
+            todoList.setUser(user);
+            TodoList savedTodoList = todoRepository.save(todoList);
+            return todoDTOMapper.apply(savedTodoList);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Error with adding new todo_List", e);
+        }
     }
+
 
     @Override
     public TodoListDTO save(TodoListDTO todoListDTO) {
-
-        Optional<TodoList> existingTodo= todoRepository.findById(todoListDTO.id());
-        if(existingTodo.isPresent()){
-            existingTodo.get().setDescription(todoListDTO.description());
-            existingTodo.get().setStatus(todoListDTO.status());
-            return todoDTOMapper.apply(todoRepository.save(existingTodo.get()));
-        }
-        else {
-            TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
-            todoRepository.save(todoList);
-            return todoDTOMapper.apply(todoList);
+        try {
+            Optional<TodoList> existingTodo = todoRepository.findById(todoListDTO.id());
+            if (existingTodo.isPresent()) {
+                existingTodo.get().setDescription(todoListDTO.description());
+                existingTodo.get().setStatus(todoListDTO.status());
+                return todoDTOMapper.apply(todoRepository.save(existingTodo.get()));
+            } else {
+                TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
+                todoRepository.save(todoList);
+                return todoDTOMapper.apply(todoList);
+            }
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Error while updating todo_List with ID " + todoListDTO.id(), e);
         }
     }
 
     @Override
     public void deleteById(int theId) {
-        todoRepository.deleteById(theId);
+        try {
+            todoRepository.deleteById(theId);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Error while deleting todo_List entry with ID " + theId, e);
+        }
     }
-
 
 
 }

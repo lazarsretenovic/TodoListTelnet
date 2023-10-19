@@ -18,8 +18,8 @@ public class TodoDTOMapperReverse implements Function<TodoListDTO, TodoList> {
         UserDetailDto userDetailDto = userDTO.user_detail();
         UserDetail userDetail = new UserDetail(
                 userDetailDto.id(),
-                userDetailDto.firstName(),
-                userDetailDto.lastName(),
+                userDetailDto.first_name(),
+                userDetailDto.last_name(),
                 userDetailDto.email(),
                 userDetailDto.city()
         );
