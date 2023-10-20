@@ -3,6 +3,8 @@ package com.TenetTodoList.TodoList.controller;
 import com.TenetTodoList.TodoList.dto.UserDTO;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Information about users:")
+
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService) {

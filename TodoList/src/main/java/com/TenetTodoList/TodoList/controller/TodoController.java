@@ -6,6 +6,7 @@ import com.TenetTodoList.TodoList.dto.UserDTO;
 import com.TenetTodoList.TodoList.services.TodoService;
 import com.TenetTodoList.TodoList.services.UserService;
 import com.TenetTodoList.TodoList.services.mappers.UserDTOMapperReverse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +14,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Todo list:")
 public class TodoController {
     private final TodoService todoService;
-    @Autowired
-    public TodoController(TodoService todoService, UserDTOMapperReverse userDTOMapperReverse) {
+
+    public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
+
     @GetMapping("/todo_list")
     public List<TodoListDTO> findAll() {
         return todoService.findAll();
@@ -47,7 +50,6 @@ public class TodoController {
         if (theTodoList == null) {
             throw new RuntimeException("Todo list by that id doesnt exit:" + todoListId);
         }
-
         todoService.deleteById(todoListId);
         return "Deleted todolist that had id of:" + todoListId;
 
