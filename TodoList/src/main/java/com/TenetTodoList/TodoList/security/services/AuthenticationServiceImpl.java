@@ -8,6 +8,8 @@ import com.TenetTodoList.TodoList.security.SignUpRequest;
 import com.TenetTodoList.TodoList.security.SinginRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,4 +52,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var jwt = jwtService.generateToken(user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
+
+    @Override
+    public UserDetails loadUserByLoginname(String loginname) throws UsernameNotFoundException {
+        User user = userSecurityRepository.findByLoginname(loginname)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with login_name of: " + loginname));
+
+        return User.builder()
+                .id(user.getId())
+                .loginname(user.getUsername())
+                .loginname(user.getLoginname(loginname))
+                .role(user.getRole())
+                .userDetail(user.getUserDetail())
+                .build();
+    }
+
 }

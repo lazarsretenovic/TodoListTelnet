@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JwtServiceImpl implements JwtService {
+
     @Value("${token.signing.key}")
     private String jwtSigningKey;
     @Override
@@ -64,4 +65,5 @@ public class JwtServiceImpl implements JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
 }

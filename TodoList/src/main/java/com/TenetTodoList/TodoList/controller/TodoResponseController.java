@@ -15,7 +15,11 @@ import java.util.List;
 @Tag(name = "Custom todo list:")
 
 public class TodoResponseController {
-    private TodoServiceResponse todoService;
+    private final TodoServiceResponse todoService;
+    public TodoResponseController(TodoServiceResponse todoService) {
+        this.todoService = todoService;
+    }
+
     @GetMapping("/todo_list_response")
     public List<TodoListDTOResponse> findAll() {
         return todoService.findAll();
