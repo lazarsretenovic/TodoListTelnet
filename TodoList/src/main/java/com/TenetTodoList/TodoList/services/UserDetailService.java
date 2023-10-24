@@ -9,9 +9,9 @@ import java.util.List;
 public interface UserDetailService {
     List<UserDetailDto> findAll();
 
-    UserDetailDto findById(int theId);
+    UserDetailDto findById(Integer theId);
 
     UserDetailDto save(UserDetailDto userDetailDto);
 
-    void deleteById(int theId);
+    void deleteById(Integer theId);
 }

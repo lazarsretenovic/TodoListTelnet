@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public UserDTO findById(int theId) {
+    public UserDTO findById(Integer theId) {
         Optional<User> result = userRepository.findById(theId);
         if (result.isPresent()) {
             User user = result.get();
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public void deleteById(int theId) {
+    public void deleteById(Integer theId) {
         try {
             userRepository.deleteById(theId);
         } catch (Exception e) {

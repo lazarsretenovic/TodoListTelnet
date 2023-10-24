@@ -40,7 +40,7 @@ public class UserDetailServiceImpl implements UserDetailService{
     }
 
     @Override
-    public UserDetailDto findById(int theId) {
+    public UserDetailDto findById(Integer theId) {
 
         Optional<UserDetail> result = userDetailRepository.findById(theId);
         if (result.isPresent()) {
@@ -74,6 +74,6 @@ public class UserDetailServiceImpl implements UserDetailService{
 
 
     @Override
-    public void deleteById(int theId) {
+    public void deleteById(Integer theId) {
     }
 }

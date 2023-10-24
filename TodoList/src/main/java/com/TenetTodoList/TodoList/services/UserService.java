@@ -7,10 +7,10 @@ import java.util.List;
 public interface UserService {
     List<UserDTO> findAll();
 
-    UserDTO findById(int theId);
+    UserDTO findById(Integer theId);
 
     UserDTO save(UserDTO userDTO);
 
-    void deleteById(int theId);
+    void deleteById(Integer theId);
 
 }

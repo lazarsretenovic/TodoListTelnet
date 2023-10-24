@@ -20,7 +20,7 @@ public class WhoAmIController {
     public WhoAmIController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
-    @GetMapping("/profile")
+    @GetMapping("/who_am_i_controller")
     public UserDetails getUserProfile(Authentication authentication) {
         String username = authentication.getName();
         UserDetails userDetails = authenticationService.loadUserByLoginname(username);

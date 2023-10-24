@@ -26,7 +26,6 @@
 //    public UserDetailsManager userDetailsManager(DataSource dataSource) {
 //        return new JdbcUserDetailsManager(dataSource);
 //    }
-//    /*napraviti lgoin controller, gde se potvrdi da li je korsinik ok i generse se jwt token*/
 //    @Bean
 //    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 //        http

@@ -43,7 +43,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public TodoListDTO findById(int theId) {
+    public TodoListDTO findById(Integer theId) {
         Optional<TodoList> result = todoRepository.findById(theId);
         if (result.isPresent()) {
             TodoList todoList = result.get();
@@ -53,7 +53,7 @@ public class TodoServiceImpl implements TodoService {
         }
     }
     @Override
-    public TodoListDTO savenew(TodoListDTO todoListDTO) {
+    public TodoListDTO save_new(TodoListDTO todoListDTO) {
         try {
             TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
             User user = userRepository.findById(todoListDTO.user().id())
@@ -85,7 +85,7 @@ public class TodoServiceImpl implements TodoService {
         }
     }
     @Override
-    public void deleteById(int theId) {
+    public void deleteById(Integer theId) {
         try {
             todoRepository.deleteById(theId);
         } catch (Exception e) {

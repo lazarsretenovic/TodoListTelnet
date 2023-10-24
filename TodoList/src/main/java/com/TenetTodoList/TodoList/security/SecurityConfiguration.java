@@ -38,6 +38,7 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**",
                                 "/api/users",
+                                "/api/user_details",
                                 "/swagger-ui/**",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
@@ -56,7 +57,7 @@ public class SecurityConfiguration {
 @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration= new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081/"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","HEAD","OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization"));
     UrlBasedCorsConfigurationSource source= new UrlBasedCorsConfigurationSource();
