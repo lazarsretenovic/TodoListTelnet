@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Tag(name = "Custom user details:")
+@Tag(name = "User Request")
 
 public class UserRequestController {
     private final UserServiceRequest userServiceRequest;

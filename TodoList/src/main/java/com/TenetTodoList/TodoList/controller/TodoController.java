@@ -44,7 +44,7 @@ public class TodoController {
         return todoService.save(updatedTodo);
     }
 
-    @DeleteMapping("/todolist/{todoListId}")
+    @DeleteMapping("/todo_list/{todoListId}")
     public String deleteTodo(@PathVariable int todoListId) {
         TodoListDTO theTodoList = todoService.findById(todoListId);
         if (theTodoList == null) {

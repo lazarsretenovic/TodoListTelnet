@@ -2,7 +2,6 @@ package com.TenetTodoList.TodoList.security.services;
 
 import com.TenetTodoList.TodoList.domain.Role;
 import com.TenetTodoList.TodoList.domain.User;
-import com.TenetTodoList.TodoList.domain.UserDetail;
 import com.TenetTodoList.TodoList.security.JwtAuthenticationResponse;
 import com.TenetTodoList.TodoList.security.SignUpRequest;
 import com.TenetTodoList.TodoList.security.SinginRequest;
@@ -12,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserSecurityRepository userSecurityRepository;
@@ -26,14 +25,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
     }
-
     @Override
     public JwtAuthenticationResponse signup(SignUpRequest request) {
         var user = User.builder()
                 .loginname(request.getLogin_name())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.valueOf("USER"))
-                .userDetail(new UserDetail())
                 .build();
         userSecurityRepository.save(user);
         var jwt = jwtService.generateToken(user);
@@ -61,7 +58,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return User.builder()
                 .id(user.getId())
                 .loginname(user.getUsername())
-                .loginname(user.getLoginname(loginname))
                 .role(user.getRole())
                 .userDetail(user.getUserDetail())
                 .build();

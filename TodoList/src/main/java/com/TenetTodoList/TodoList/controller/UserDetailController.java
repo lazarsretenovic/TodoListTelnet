@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Tag(name = "User details:")
+@Tag(name = "Details about user")
 
 public class UserDetailController {
     private final UserDetailService userDetailService;
@@ -24,7 +24,7 @@ public class UserDetailController {
         return userDetailService.findAll();
     }
 
-    @GetMapping("/user_details/{userId}")
+    @GetMapping("/user_detail/{userId}")
     public UserDetailDto getUser(@PathVariable int userId) {
         UserDetailDto userDetailDto = userDetailService.findById(userId);
         if (userDetailDto == null) {
@@ -32,12 +32,12 @@ public class UserDetailController {
         }
         return userDetailDto;
     }
-    @PostMapping("/user_details")
+    @PostMapping("/user_detail")
     public UserDetailDto addUser(@RequestBody UserDetailDto theUser) {
         UserDetailDto user = userDetailService.save(theUser);
         return user;
     }
-    @PutMapping ("/user_details/{userId}")
+    @PutMapping ("/user_detail/{userId}")
     public UserDetailDto addUser(@PathVariable  int userId ,@RequestBody UserDetailDto updateUserDetailDto) {
         return userDetailService.save(updateUserDetailDto);
     }

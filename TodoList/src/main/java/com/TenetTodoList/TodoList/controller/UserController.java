@@ -23,7 +23,7 @@ public class UserController {
     public List<UserDTO> findAll(){
         return userService.findAll();
     }
-    @GetMapping("/users/{userId}")
+    @GetMapping("/user/{userId}")
     public UserDTO getUser(@PathVariable int userId) {
         UserDTO theUser = userService.findById(userId);
         if (theUser == null) {
@@ -31,12 +31,12 @@ public class UserController {
         }
         return theUser;
     }
-    @PostMapping("/users")
+    @PostMapping("/user")
     public UserDTO addUser(@RequestBody UserDTO theUser){
         UserDTO user= userService.save(theUser);
         return user;
 }
-    @PutMapping("/users/{userId}")
+    @PutMapping("/user/{userId}")
     public UserDTO updateUser(@PathVariable int userId, @RequestBody UserDTO updatedUser) {
         UserDTO existingUser = userService.findById(userId);
         if (existingUser == null) {
@@ -52,7 +52,7 @@ public class UserController {
 
         return userService.save(userToUpdate);
     }
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("/user/{userId}")
     public String deleteUser(@PathVariable int userId){
         UserDTO theUser=userService.findById(userId);
         if(theUser == null){

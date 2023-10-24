@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Tag(name = "Custom todo list:")
+@Tag(name = "Todo list response")
 
 public class TodoResponseController {
     private final TodoServiceResponse todoService;
