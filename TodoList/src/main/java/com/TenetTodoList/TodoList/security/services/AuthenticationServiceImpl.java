@@ -2,7 +2,7 @@ package com.TenetTodoList.TodoList.security.services;
 
 import com.TenetTodoList.TodoList.domain.Role;
 import com.TenetTodoList.TodoList.domain.User;
-import com.TenetTodoList.TodoList.dto.UserDtoWho;
+import com.TenetTodoList.TodoList.dto.UserDTOWhoAmI;
 import com.TenetTodoList.TodoList.security.JwtAuthenticationResponse;
 import com.TenetTodoList.TodoList.security.SignUpRequest;
 import com.TenetTodoList.TodoList.security.SinginRequest;
@@ -52,12 +52,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public UserDtoWho loadUserByLoginname(String loginname) throws UsernameNotFoundException {
+    public UserDTOWhoAmI loadUserByLoginname(String loginname) throws UsernameNotFoundException {
         User user = userSecurityRepository.findByLoginname(loginname)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with login_name of: " + loginname));
 
 
-        return new UserDtoWho(
+        return new UserDTOWhoAmI(
                 user.getId(),
                 user.getLoginname(user.getUsername()), // Note: Use the correct property for the username
                 userDetailDTOMapper.apply(user.getUserDetail()),

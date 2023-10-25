@@ -3,7 +3,7 @@ package com.TenetTodoList.TodoList.dto;
 
 import com.TenetTodoList.TodoList.domain.Role;
 
-public class UserDtoWho{
+public class UserDTOWhoAmI {
     private int id;
     private String login_name;
     private UserDetailDto userDetail;
@@ -13,10 +13,10 @@ public class UserDtoWho{
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
 
-    public UserDtoWho() {
+    public UserDTOWhoAmI() {
     }
 
-    public UserDtoWho(int id, String login_name, UserDetailDto userDetail, Role role, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
+    public UserDTOWhoAmI(int id, String login_name, UserDetailDto userDetail, Role role, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
         this.id = id;
         this.login_name = login_name;
         this.userDetail = userDetail;

@@ -1,6 +1,6 @@
 package com.TenetTodoList.TodoList.controller;
 
-import com.TenetTodoList.TodoList.dto.UserDtoWho;
+import com.TenetTodoList.TodoList.dto.UserDTOWhoAmI;
 import com.TenetTodoList.TodoList.security.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
@@ -21,9 +21,9 @@ public class WhoAmIController {
         this.authenticationService = authenticationService;
     }
     @GetMapping("/who_am_i_controller")
-    public UserDtoWho getUserProfile(Authentication authentication) {
+    public UserDTOWhoAmI getUserProfile(Authentication authentication) {
         String username = authentication.getName();
-        UserDtoWho userDetails = authenticationService.loadUserByLoginname(username);
+        UserDTOWhoAmI userDetails = authenticationService.loadUserByLoginname(username);
         logger.info("Controller works");
         return userDetails;
     }

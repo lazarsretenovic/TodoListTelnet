@@ -1,20 +1,20 @@
 package com.TenetTodoList.TodoList.services.mappers;
 
 import com.TenetTodoList.TodoList.domain.User;
-import com.TenetTodoList.TodoList.dto.UserDtoWho;
+import com.TenetTodoList.TodoList.dto.UserDTOWhoAmI;
 
 import java.util.function.Function;
 
-public class UserDtoWhoMapper implements Function<User, UserDtoWho> {
+public class UserDTOWhoAmIMapper implements Function<User, UserDTOWhoAmI> {
     private final UserDetailDTOMapper userDetailDTOMapper;
 
-    public UserDtoWhoMapper(UserDetailDTOMapper userDetailDTOMapper) {
+    public UserDTOWhoAmIMapper(UserDetailDTOMapper userDetailDTOMapper) {
         this.userDetailDTOMapper = userDetailDTOMapper;
     }
 
     @Override
-    public UserDtoWho apply(User user) {
-        UserDtoWho userDtoWho = new UserDtoWho(
+    public UserDTOWhoAmI apply(User user) {
+        UserDTOWhoAmI userDtoWhoAmI = new UserDTOWhoAmI(
                 user.getId(),
                 user.getUsername(), // Use the correct property for the username
                 userDetailDTOMapper.apply(user.getUserDetail()),
@@ -24,6 +24,6 @@ public class UserDtoWhoMapper implements Function<User, UserDtoWho> {
                 user.isCredentialsNonExpired(),
                 user.isEnabled()
         );
-        return userDtoWho;
+        return userDtoWhoAmI;
     }
 }
