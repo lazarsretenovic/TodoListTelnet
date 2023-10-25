@@ -59,7 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return new UserDTOWhoAmI(
                 user.getId(),
-                user.getLoginname(user.getUsername()), // Note: Use the correct property for the username
+                user.getLoginname(user.getUsername()),
                 userDetailDTOMapper.apply(user.getUserDetail()),
                 user.getRole(),
                 user.isAccountNonExpired(),

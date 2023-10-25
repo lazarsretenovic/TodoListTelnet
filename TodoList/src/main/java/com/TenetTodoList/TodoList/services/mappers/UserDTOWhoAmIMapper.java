@@ -16,7 +16,7 @@ public class UserDTOWhoAmIMapper implements Function<User, UserDTOWhoAmI> {
     public UserDTOWhoAmI apply(User user) {
         UserDTOWhoAmI userDtoWhoAmI = new UserDTOWhoAmI(
                 user.getId(),
-                user.getUsername(), // Use the correct property for the username
+                user.getUsername(),
                 userDetailDTOMapper.apply(user.getUserDetail()),
                 user.getRole(),
                 user.isAccountNonExpired(),

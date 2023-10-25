@@ -1,9 +1,7 @@
 package com.TenetTodoList.TodoList.services;
 
 import com.TenetTodoList.TodoList.dao.UserDetailRepository;
-import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.domain.UserDetail;
-import com.TenetTodoList.TodoList.dto.UserDTO;
 import com.TenetTodoList.TodoList.dto.UserDetailDto;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.mappers.UserDetailDTOMapper;

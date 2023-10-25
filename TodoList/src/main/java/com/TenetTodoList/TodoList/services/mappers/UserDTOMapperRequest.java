@@ -1,9 +1,8 @@
 package com.TenetTodoList.TodoList.services.mappers;
 
 import com.TenetTodoList.TodoList.domain.User;
-import com.TenetTodoList.TodoList.dto.UserDTORequest;
 import com.TenetTodoList.TodoList.dto.TodoListDTORequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.TenetTodoList.TodoList.dto.UserDTORequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

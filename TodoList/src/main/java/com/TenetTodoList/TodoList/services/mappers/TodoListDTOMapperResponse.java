@@ -2,7 +2,6 @@ package com.TenetTodoList.TodoList.services.mappers;
 
 import com.TenetTodoList.TodoList.domain.TodoList;
 import com.TenetTodoList.TodoList.dto.TodoListDTOResponse;
-import com.TenetTodoList.TodoList.services.mappers.UserDTOMapperResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
