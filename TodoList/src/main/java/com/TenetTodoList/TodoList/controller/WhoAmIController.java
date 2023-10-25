@@ -1,9 +1,9 @@
 package com.TenetTodoList.TodoList.controller;
 
+import com.TenetTodoList.TodoList.dto.UserDtoWho;
 import com.TenetTodoList.TodoList.security.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +21,9 @@ public class WhoAmIController {
         this.authenticationService = authenticationService;
     }
     @GetMapping("/who_am_i_controller")
-    public UserDetails getUserProfile(Authentication authentication) {
+    public UserDtoWho getUserProfile(Authentication authentication) {
         String username = authentication.getName();
-        UserDetails userDetails = authenticationService.loadUserByLoginname(username);
+        UserDtoWho userDetails = authenticationService.loadUserByLoginname(username);
         logger.info("Controller works");
         return userDetails;
     }
