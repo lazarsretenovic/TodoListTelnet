@@ -8,11 +8,12 @@ public class TodoList{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Column(name = "description")
     private String description;
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private Status status;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -20,16 +21,16 @@ public class TodoList{
     public TodoList() {
     }
 
-    public TodoList(int id, String description, String status, User user) {
+    public TodoList(Integer id, String description, Status status, User user) {
         this.description = description;
         this.status = status;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,11 +42,11 @@ public class TodoList{
         this.description = description;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

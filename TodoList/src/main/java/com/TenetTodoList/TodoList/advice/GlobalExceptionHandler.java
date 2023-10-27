@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("Resource not found: " + ex.getMessage());
+                .body("Resource not found:" + ex.getMessage());
     }
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseBody

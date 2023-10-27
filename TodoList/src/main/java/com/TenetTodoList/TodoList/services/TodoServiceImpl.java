@@ -21,15 +21,12 @@ public class TodoServiceImpl implements TodoService {
     private final TodoDTOMapper todoDTOMapper;
     private final TodoDTOMapperReverse todoDTOMapperReverse;
     private final UserRepository userRepository;
-
-
     public TodoServiceImpl(TodoRepository todoRepository, TodoDTOMapper todoDTOMapper, TodoDTOMapperReverse todoDTOMapperReverse, UserDTOMapper userDTOMapper, UserRepository userRepository) {
         this.todoRepository = todoRepository;
         this.todoDTOMapper = todoDTOMapper;
         this.todoDTOMapperReverse = todoDTOMapperReverse;
         this.userRepository = userRepository;
     }
-
     @Override
     public List<TodoListDTO> findAll() {
         try {
@@ -41,7 +38,6 @@ public class TodoServiceImpl implements TodoService {
             throw new ResourceNotFoundException("Error while fetching todo_List", e);
         }
     }
-
     @Override
     public TodoListDTO findById(Integer theId) {
         Optional<TodoList> result = todoRepository.findById(theId);
@@ -49,7 +45,7 @@ public class TodoServiceImpl implements TodoService {
             TodoList todoList = result.get();
             return todoDTOMapper.apply(todoList);
         } else {
-            throw new ResourceNotFoundException("Did not find Todo with the id of " + theId);
+            throw new ResourceNotFoundException("Did not find todo_List entries by the id of " + theId);
         }
     }
     @Override
@@ -65,8 +61,6 @@ public class TodoServiceImpl implements TodoService {
             throw new ResourceNotFoundException("Error with adding new todo_List", e);
         }
     }
-
-
     @Override
     public TodoListDTO save(TodoListDTO todoListDTO) {
         try {

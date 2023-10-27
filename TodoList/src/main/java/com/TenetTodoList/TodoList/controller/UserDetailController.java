@@ -1,9 +1,10 @@
 package com.TenetTodoList.TodoList.controller;
 
 import com.TenetTodoList.TodoList.dto.UserDetailDto;
-import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.UserDetailService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,25 +19,32 @@ public class UserDetailController {
         this.userDetailService = userDetailService;
     }
     @GetMapping("/user_details")
-    public List<UserDetailDto> findAll() {
-        return userDetailService.findAll();
+    public ResponseEntity<List<UserDetailDto>> findAll() {
+        List<UserDetailDto> userDetailDtos = userDetailService.findAll();
+        return new ResponseEntity<>(userDetailDtos, HttpStatus.OK);
     }
 
     @GetMapping("/user_detail/{userId}")
-    public UserDetailDto getUser(@PathVariable int userId) {
+    public ResponseEntity<UserDetailDto> getUser(@PathVariable int userId) {
         UserDetailDto userDetailDto = userDetailService.findById(userId);
         if (userDetailDto == null) {
-            throw new ResourceNotFoundException("User with that id was not found:" + userId);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return userDetailDto;
+        return new ResponseEntity<>(userDetailDto, HttpStatus.OK);
     }
+
     @PostMapping("/user_detail")
-    public UserDetailDto addUser(@RequestBody UserDetailDto theUser) {
+    public ResponseEntity<UserDetailDto> addUser(@RequestBody UserDetailDto theUser) {
         UserDetailDto user = userDetailService.save(theUser);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
-    @PutMapping ("/user_detail/{userId}")
-    public UserDetailDto addUser(@PathVariable  int userId ,@RequestBody UserDetailDto updateUserDetailDto) {
-        return userDetailService.save(updateUserDetailDto);
+
+    @PutMapping("/user_detail/{userId}")
+    public ResponseEntity<UserDetailDto> updateUser(@PathVariable int userId, @RequestBody UserDetailDto updateUserDetailDto) {
+        UserDetailDto updatedUserDetail = userDetailService.save(updateUserDetailDto);
+        if (updatedUserDetail == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(updatedUserDetail, HttpStatus.OK);
     }
 }

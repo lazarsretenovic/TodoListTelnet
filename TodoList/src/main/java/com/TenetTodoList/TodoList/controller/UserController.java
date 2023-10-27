@@ -1,9 +1,10 @@
 package com.TenetTodoList.TodoList.controller;
 
 import com.TenetTodoList.TodoList.dto.UserDTO;
-import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import com.TenetTodoList.TodoList.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,56 +15,49 @@ import java.util.List;
 
 public class UserController {
     private final UserService userService;
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @GetMapping("/users")
-    public List<UserDTO> findAll() {
-        return userService.findAll();
+    public ResponseEntity<List<UserDTO>>findAll() {
+        List<UserDTO> userDTOS= userService.findAll();
+        return new ResponseEntity<>(userDTOS,HttpStatus.OK);
     }
-
     @GetMapping("/user/{userId}")
-    public UserDTO getUser(@PathVariable int userId) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable int userId) {
         UserDTO theUser = userService.findById(userId);
         if (theUser == null) {
-            throw new ResourceNotFoundException("User with that id was not found:" + userId);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return theUser;
+        return new ResponseEntity<>(theUser, HttpStatus.OK);
     }
-
     @PostMapping("/user")
-    public UserDTO addUser(@RequestBody UserDTO theUser) {
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO theUser) {
         UserDTO user = userService.save(theUser);
-        return user;
+        return new ResponseEntity<>(user,HttpStatus.CREATED);
     }
-
     @PutMapping("/user/{userId}")
-    public UserDTO updateUser(@PathVariable int userId, @RequestBody UserDTO updatedUser) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable int userId, @RequestBody UserDTO updatedUser) {
         UserDTO existingUser = userService.findById(userId);
         if (existingUser == null) {
-            throw new ResourceNotFoundException("User with ID " + userId + " not found.");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         UserDTO userToUpdate = new UserDTO(
                 userId,
                 updatedUser.login_name(),
-                updatedUser.password(),
                 updatedUser.role(),
                 existingUser.user_detail()
         );
-
-        return userService.save(userToUpdate);
+        return new ResponseEntity<>(userService.save(userToUpdate), HttpStatus.OK);
     }
-
     @DeleteMapping("/user/{userId}")
-    public String deleteUser(@PathVariable int userId) {
+    public ResponseEntity<String> deleteUser(@PathVariable int userId) {
         UserDTO theUser = userService.findById(userId);
         if (theUser == null) {
-            throw new ResourceNotFoundException("User not found" + userId);
+            return new ResponseEntity<>("User not found" + userId, HttpStatus.NOT_FOUND);
         }
         userService.deleteById(userId);
-        return "Deleted the user by the id of:" + theUser;
+        return new ResponseEntity<>("Deleted the user by the id of:" + theUser, HttpStatus.OK);
     }
 }
 

@@ -6,6 +6,7 @@ import com.TenetTodoList.TodoList.security.SinginRequest;
 import com.TenetTodoList.TodoList.security.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,13 +27,13 @@ public class AuthenticationController {
 )
     @PostMapping("/sign_up")
     public ResponseEntity<JwtAuthenticationResponse> signup(@RequestBody SignUpRequest request) {
-        return ResponseEntity.ok(authenticationService.signup(request));
+        return new ResponseEntity<>(authenticationService.signup(request),HttpStatus.OK);
     }
     @Operation(
             description = "You sing in here"
     )
     @PostMapping("/sign_in")
     public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SinginRequest request) {
-        return ResponseEntity.ok(authenticationService.signin(request));
+        return new ResponseEntity<>(authenticationService.signin(request),HttpStatus.OK);
     }
 }

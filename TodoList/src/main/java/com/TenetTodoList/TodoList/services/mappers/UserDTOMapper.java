@@ -10,7 +10,8 @@ import java.util.function.Function;
 public class UserDTOMapper implements Function<User, UserDTO> {
     private final UserDetailDTOMapper userDetailDTOMapper;
 
-    public UserDTOMapper(UserDetailDTOMapper userDetailDTOMapper) {
+    public UserDTOMapper(UserDetailDTOMapper userDetailDTOMapper)
+    {
         this.userDetailDTOMapper = userDetailDTOMapper;
     }
 
@@ -18,7 +19,6 @@ public class UserDTOMapper implements Function<User, UserDTO> {
         UserDTO userDTO = new UserDTO(
                 user.getId(),
                 user.getUsername(),
-                user.getPassword(),
                 user.getRole(),
                 userDetailDTOMapper.apply(user.getUserDetail())
         );

@@ -3,7 +3,6 @@ package com.TenetTodoList.TodoList.domain;
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import jakarta.persistence.*;
 import lombok.Builder;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,12 +16,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Column(name = "loginname",unique = true)
     private String loginname;
     @Column(name = "password")
     private String password;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_detail_id")
     private UserDetail userDetail;
@@ -85,9 +83,9 @@ public class User implements UserDetails {
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
     }
-    public User(int id, String loginname, String password, UserDetail userDetail, TodoListDTO todoListDTO) {
+    public User(Integer id, String loginname, String password, UserDetail userDetail, TodoListDTO todoListDTO) {
     }
-    public User(int id, String loginname, String password, UserDetail userDetail, Role role, List<TodoList> todoList) {
+    public User(Integer id, String loginname, String password, UserDetail userDetail, Role role, List<TodoList> todoList) {
         this.id = id;
         this.loginname = loginname;
         this.password = password;
@@ -96,7 +94,7 @@ public class User implements UserDetails {
         this.todoList = todoList;
     }
 
-    public User(int id, String loginname, String password, UserDetail userDetail) {
+    public User(Integer id, String loginname, UserDetail userDetail) {
         this.loginname = loginname;
         this.password = password;
         this.userDetail = userDetail;
@@ -105,11 +103,11 @@ public class User implements UserDetails {
         this.todoList = todoList;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -121,8 +119,6 @@ public class User implements UserDetails {
         this.loginname = loginname;
     }
 
-
-
     public String getPassword() {
         return password;
     }
@@ -131,7 +127,6 @@ public class User implements UserDetails {
         this.password = password;
 
     }
-
     public void setTodoList(List<TodoList> todoList) {
         this.todoList = todoList;
     }

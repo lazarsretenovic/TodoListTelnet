@@ -54,7 +54,6 @@ public class UserServiceImpl implements UserService {
             Optional<User> existingUser = userRepository.findById(userDTO.id());
             if (existingUser.isPresent()) {
                 existingUser.get().setLoginname(userDTO.login_name());
-                existingUser.get().setPassword(userDTO.password());
                 existingUser.get().setRole(userDTO.role());
                 UserDetail userDetail = userDetailDTOMapperReverse.apply(userDTO.user_detail());
                 existingUser.get().setUserDetail(userDetail);

@@ -26,8 +26,7 @@ public class TodoDTOMapperReverse implements Function<TodoListDTO, TodoList> {
         User user= new User(
                 userDTO.id(),
                 userDTO.login_name(),
-                userDTO.password(),
-              userDetail
+                userDetail
         );
         return new TodoList(
                 todoListDTO.id(),

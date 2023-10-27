@@ -1,9 +1,11 @@
 package com.TenetTodoList.TodoList.dto;
 
+import com.TenetTodoList.TodoList.domain.Status;
+
 public record TodoListDTOResponse(
         Integer id,
         String description,
-        String status,
+        Status status,
         UserDTOResponse user
 ) {
 }

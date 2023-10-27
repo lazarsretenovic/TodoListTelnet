@@ -23,7 +23,6 @@ public class UserDTOMapperReverse implements Function<UserDTO, User> {
         return new User(
                 userDTO.id(),
                 userDTO.login_name(),
-                userDTO.password(),
                 userDetail
         );
     }
