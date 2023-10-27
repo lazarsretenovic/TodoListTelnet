@@ -6,7 +6,7 @@ public record TodoListDTO(
         Integer id,
         String description,
         Status status,
-        UserDTO user
+        UserDTONoDetails user
 )
 {
 }
