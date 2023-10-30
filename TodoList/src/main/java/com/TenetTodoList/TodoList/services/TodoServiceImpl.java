@@ -45,7 +45,7 @@ public class TodoServiceImpl implements TodoService {
             TodoList todoList = result.get();
             return todoDTOMapper.apply(todoList);
         } else {
-            throw new ResourceNotFoundException("Did not find todo_List entries by the id of " + theId);
+            throw new ResourceNotFoundException("Did not find todo_List entry by the id of " + theId);
         }
     }
     @Override

@@ -2,6 +2,7 @@ package com.TenetTodoList.TodoList.security.services;
 
 import com.TenetTodoList.TodoList.domain.Role;
 import com.TenetTodoList.TodoList.domain.User;
+import com.TenetTodoList.TodoList.domain.UserDetail;
 import com.TenetTodoList.TodoList.dto.UserDTOWhoAmI;
 import com.TenetTodoList.TodoList.security.JwtAuthenticationResponse;
 import com.TenetTodoList.TodoList.security.SignUpRequest;
@@ -32,6 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .loginname(request.getLogin_name())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.valueOf("USER"))
+                .userDetail(new UserDetail())
                 .build();
         userSecurityRepository.save(user);
         var jwt = jwtService.generateToken(user);
