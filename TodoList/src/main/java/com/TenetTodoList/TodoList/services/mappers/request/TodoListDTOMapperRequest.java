@@ -1,4 +1,4 @@
-package com.TenetTodoList.TodoList.services.mappers;
+package com.TenetTodoList.TodoList.services.mappers.request;
 
 import com.TenetTodoList.TodoList.domain.TodoList;
 import com.TenetTodoList.TodoList.dto.TodoListDTORequest;

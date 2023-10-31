@@ -24,11 +24,8 @@ public class UserController {
         return new ResponseEntity<>(userDTOS,HttpStatus.OK);
     }
     @GetMapping("/user/{userId}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable int userId) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable Integer userId) {
         UserDTO theUser = userService.findById(userId);
-        if (theUser == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(theUser, HttpStatus.OK);
     }
     @PostMapping("/user")
@@ -37,11 +34,8 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.CREATED);
     }
     @PutMapping("/user/{userId}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable int userId, @RequestBody UserDTO updatedUser) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer userId, @RequestBody UserDTO updatedUser) {
         UserDTO existingUser = userService.findById(userId);
-        if (existingUser == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         UserDTO userToUpdate = new UserDTO(
                 userId,
                 updatedUser.login_name(),
@@ -51,11 +45,8 @@ public class UserController {
         return new ResponseEntity<>(userService.save(userToUpdate), HttpStatus.OK);
     }
     @DeleteMapping("/user/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable int userId) {
+    public ResponseEntity<String> deleteUser(@PathVariable Integer userId) {
         UserDTO theUser = userService.findById(userId);
-        if (theUser == null) {
-            return new ResponseEntity<>("User not found" + userId, HttpStatus.NOT_FOUND);
-        }
         userService.deleteById(userId);
         return new ResponseEntity<>("Deleted the user by the id of:" + theUser, HttpStatus.OK);
     }

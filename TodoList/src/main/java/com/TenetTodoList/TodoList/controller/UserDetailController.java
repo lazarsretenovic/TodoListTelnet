@@ -1,5 +1,6 @@
 package com.TenetTodoList.TodoList.controller;
 
+import com.TenetTodoList.TodoList.dto.UserDTO;
 import com.TenetTodoList.TodoList.dto.UserDetailDto;
 import com.TenetTodoList.TodoList.services.UserDetailService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,26 +26,16 @@ public class UserDetailController {
     }
 
     @GetMapping("/user_detail/{userId}")
-    public ResponseEntity<UserDetailDto> getUser(@PathVariable int userId) {
+    public ResponseEntity<UserDetailDto> getUser(@PathVariable Integer userId) {
         UserDetailDto userDetailDto = userDetailService.findById(userId);
-        if (userDetailDto == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(userDetailDto, HttpStatus.OK);
     }
 
-    @PostMapping("/user_detail")
-    public ResponseEntity<UserDetailDto> addUser(@RequestBody UserDetailDto theUser) {
-        UserDetailDto user = userDetailService.save(theUser);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
-    }
-
     @PutMapping("/user_detail/{userId}")
-    public ResponseEntity<UserDetailDto> updateUser(@PathVariable int userId, @RequestBody UserDetailDto updateUserDetailDto) {
+    public ResponseEntity<UserDetailDto> updateUser(@PathVariable Integer userId, @RequestBody UserDetailDto updateUserDetailDto) {
+        UserDetailDto userDetailDto = userDetailService.findById(userId);
         UserDetailDto updatedUserDetail = userDetailService.save(updateUserDetailDto);
-        if (updatedUserDetail == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(updatedUserDetail, HttpStatus.OK);
     }
+
 }

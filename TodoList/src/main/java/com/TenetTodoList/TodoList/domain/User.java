@@ -22,12 +22,14 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
     @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
     @JoinColumn(name = "user_detail_id")
     private UserDetail userDetail;
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH })
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH })
     private List<TodoList> todoList;
 
     public User(String loginname, String password, Role role) {

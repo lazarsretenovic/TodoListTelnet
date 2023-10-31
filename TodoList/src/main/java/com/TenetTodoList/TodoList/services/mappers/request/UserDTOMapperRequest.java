@@ -1,4 +1,4 @@
-package com.TenetTodoList.TodoList.services.mappers;
+package com.TenetTodoList.TodoList.services.mappers.request;
 
 import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.TodoListDTORequest;
@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserDTOMapperRequest implements Function<User, UserDTORequest> {
-
     private final UserDetailDTOMapperRequest userDetailDTOMapperRequest;
     private final TodoListDTOMapperRequest todoListDTOMapperRequest;
 

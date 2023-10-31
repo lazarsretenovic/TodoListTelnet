@@ -4,7 +4,9 @@ import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,27 +25,4 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorResponse);
     }
 
-    public class ErrorResponse {
-        private final HttpStatus status;
-        private final String message;
-        private final String details;
-
-        public ErrorResponse(HttpStatus status, String message, String details) {
-            this.status = status;
-            this.message = message;
-            this.details = details;
-        }
-
-        public HttpStatus getStatus() {
-            return status;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public String getDetails() {
-            return details;
-        }
-    }
 }

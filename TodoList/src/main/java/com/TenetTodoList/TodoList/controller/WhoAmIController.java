@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class WhoAmIController {
     private final AuthenticationService authenticationService;
     private static final Logger logger = LoggerFactory.getLogger(WhoAmIController.class);
-
     public WhoAmIController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }

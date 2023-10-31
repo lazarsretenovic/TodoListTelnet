@@ -3,14 +3,14 @@ package com.TenetTodoList.TodoList.security;
 import lombok.Builder;
 
 @Builder
-public class SinginRequest {
+public class SingInRequest {
     private String login_name;
     private String password;
 
-    public SinginRequest() {
+    public SingInRequest() {
     }
 
-    public SinginRequest(String login_name, String password) {
+    public SingInRequest(String login_name, String password) {
         this.login_name = login_name;
         this.password = password;
     }

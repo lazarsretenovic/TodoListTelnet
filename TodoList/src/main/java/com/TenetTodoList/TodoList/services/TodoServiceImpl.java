@@ -6,9 +6,7 @@ import com.TenetTodoList.TodoList.domain.TodoList;
 import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.TodoListDTO;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
-import com.TenetTodoList.TodoList.services.mappers.TodoDTOMapper;
-import com.TenetTodoList.TodoList.services.mappers.TodoDTOMapperReverse;
-import com.TenetTodoList.TodoList.services.mappers.UserDTOMapper;
+import com.TenetTodoList.TodoList.services.mappers.TodoListMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,21 +16,19 @@ import java.util.stream.Collectors;
 @Service
 public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
-    private final TodoDTOMapper todoDTOMapper;
-    private final TodoDTOMapperReverse todoDTOMapperReverse;
     private final UserRepository userRepository;
-    public TodoServiceImpl(TodoRepository todoRepository, TodoDTOMapper todoDTOMapper, TodoDTOMapperReverse todoDTOMapperReverse, UserDTOMapper userDTOMapper, UserRepository userRepository) {
+    private final TodoListMapper todoListMapper;
+    public TodoServiceImpl(TodoRepository todoRepository,UserRepository userRepository, TodoListMapper todoListMapper) {
         this.todoRepository = todoRepository;
-        this.todoDTOMapper = todoDTOMapper;
-        this.todoDTOMapperReverse = todoDTOMapperReverse;
         this.userRepository = userRepository;
+        this.todoListMapper = todoListMapper;
     }
     @Override
     public List<TodoListDTO> findAll() {
         try {
             return todoRepository.findAll()
                     .stream()
-                    .map(todoDTOMapper::apply)
+                    .map(todoListMapper::convertFromEntity)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             throw new ResourceNotFoundException("Error while fetching todo_List", e);
@@ -43,7 +39,7 @@ public class TodoServiceImpl implements TodoService {
         Optional<TodoList> result = todoRepository.findById(theId);
         if (result.isPresent()) {
             TodoList todoList = result.get();
-            return todoDTOMapper.apply(todoList);
+            return todoListMapper.convertFromEntity(todoList);
         } else {
             throw new ResourceNotFoundException("Did not find todo_List entry by the id of " + theId);
         }
@@ -51,12 +47,12 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public TodoListDTO save_new(TodoListDTO todoListDTO) {
         try {
-            TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
+            TodoList todoList = todoListMapper.convertFromDTO(todoListDTO);
             User user = userRepository.findById(todoListDTO.user().id())
                     .orElseThrow(() -> new ResourceNotFoundException("User with ID " + todoListDTO.user().id() + " not found"));
             todoList.setUser(user);
             TodoList savedTodoList = todoRepository.save(todoList);
-            return todoDTOMapper.apply(savedTodoList);
+            return todoListMapper.convertFromEntity(savedTodoList);
         } catch (Exception e) {
             throw new ResourceNotFoundException("Error with adding new todo_List", e);
         }
@@ -66,13 +62,12 @@ public class TodoServiceImpl implements TodoService {
         try {
             Optional<TodoList> existingTodo = todoRepository.findById(todoListDTO.id());
             if (existingTodo.isPresent()) {
-                existingTodo.get().setDescription(todoListDTO.description());
-                existingTodo.get().setStatus(todoListDTO.status());
-                return todoDTOMapper.apply(todoRepository.save(existingTodo.get()));
+                TodoList todoToUpdate = existingTodo.get();
+                todoToUpdate.setDescription(todoListDTO.description());
+                todoToUpdate.setStatus(todoListDTO.status());
+                return todoListMapper.convertFromEntity(todoRepository.save(todoToUpdate));
             } else {
-                TodoList todoList = todoDTOMapperReverse.apply(todoListDTO);
-                todoRepository.save(todoList);
-                return todoDTOMapper.apply(todoList);
+                throw new ResourceNotFoundException("TodoList with ID " + todoListDTO.id() + " not found for update");
             }
         } catch (Exception e) {
             throw new ResourceNotFoundException("Error while updating todo_List with ID " + todoListDTO.id(), e);

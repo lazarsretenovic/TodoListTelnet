@@ -3,7 +3,7 @@ package com.TenetTodoList.TodoList.services;
 import com.TenetTodoList.TodoList.dao.UserRepository;
 import com.TenetTodoList.TodoList.dto.UserDTORequest;
 import com.TenetTodoList.TodoList.exceptions.ResourceNotFoundException;
-import com.TenetTodoList.TodoList.services.mappers.UserDTOMapperRequest;
+import com.TenetTodoList.TodoList.services.mappers.request.UserDTOMapperRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

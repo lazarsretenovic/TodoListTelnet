@@ -2,7 +2,7 @@ package com.TenetTodoList.TodoList.controller;
 
 import com.TenetTodoList.TodoList.security.JwtAuthenticationResponse;
 import com.TenetTodoList.TodoList.security.SignUpRequest;
-import com.TenetTodoList.TodoList.security.SinginRequest;
+import com.TenetTodoList.TodoList.security.SingInRequest;
 import com.TenetTodoList.TodoList.security.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +33,7 @@ public class AuthenticationController {
             description = "You sing in here"
     )
     @PostMapping("/sign_in")
-    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SinginRequest request) {
-        return new ResponseEntity<>(authenticationService.signin(request),HttpStatus.OK);
+    public ResponseEntity<JwtAuthenticationResponse> signin(@RequestBody SingInRequest request) {
+        return new ResponseEntity<>(authenticationService.singin(request),HttpStatus.OK);
     }
 }

@@ -23,11 +23,8 @@ public class TodoController {
         return new ResponseEntity<>(todoListDTOs, HttpStatus.OK);
     }
     @GetMapping("/todo_list/{todoListId}")
-    public ResponseEntity<TodoListDTO> getTodo(@PathVariable int todoListId) {
+    public ResponseEntity<TodoListDTO> getTodo(@PathVariable Integer todoListId) {
         TodoListDTO theTodoList = todoService.findById(todoListId);
-        if (theTodoList == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(theTodoList, HttpStatus.OK);
     }
     @PostMapping("/todo_list")
@@ -36,21 +33,13 @@ public class TodoController {
         return new ResponseEntity<>(savedTodoList, HttpStatus.CREATED);
     }
     @PutMapping("/todo_list/{todoListId}")
-    public ResponseEntity<TodoListDTO> updateTodo(
-            @PathVariable int todoListId, @RequestBody TodoListDTO updatedTodo) {
+    public ResponseEntity<TodoListDTO> updateTodo(@PathVariable Integer todoListId, @RequestBody TodoListDTO updatedTodo) {
         TodoListDTO updated = todoService.save(updatedTodo);
-        if (updated == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
     @DeleteMapping("/todo_list/{todoListId}")
-    public ResponseEntity<String> deleteTodo(@PathVariable int todoListId) {
+    public ResponseEntity<String> deleteTodo(@PathVariable Integer todoListId) {
         TodoListDTO theTodoList = todoService.findById(todoListId);
-        if (theTodoList == null) {
-            return new ResponseEntity<>("Todo list not found for id: " + todoListId, HttpStatus.NOT_FOUND);
-        }
-
         todoService.deleteById(todoListId);
         return new ResponseEntity<>("Deleted todolist with id: " + todoListId, HttpStatus.OK);
     }
