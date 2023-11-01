@@ -2,17 +2,23 @@ package com.TenetTodoList.TodoList.services.mappers;
 
 import com.TenetTodoList.TodoList.domain.User;
 import com.TenetTodoList.TodoList.dto.*;
+import com.TenetTodoList.TodoList.services.mappers.request.TodoListRequestMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
-public class UserMapper implements UserConverter{
-    private final UserDetailsConverter userDetailsConverter;
+public class UserMapper implements UserConverter {
+    private final com.TenetTodoList.TodoList.services.mappers.UserDetailsConverter userDetailsConverter;
+    private final TodoListRequestMapper todoListRequestMapper;
     private static final Logger logger = LoggerFactory.getLogger(UserMapper.class);
 
-    public UserMapper(UserDetailsConverter userDetailsConverter) {
+    public UserMapper(UserDetailsConverter userDetailsConverter, TodoListRequestMapper todoListRequestMapper) {
         this.userDetailsConverter = userDetailsConverter;
+        this.todoListRequestMapper = todoListRequestMapper;
     }
     @Override
     public User convertFromDTO(UserDTO dto) {
@@ -63,7 +69,16 @@ public class UserMapper implements UserConverter{
     @Override
     public UserDTORequest convertFromEntityRequest(User entity) {
         try {
-            return null;
+            List<TodoListDTORequest> todoListDTOs = entity.getTodoList().stream()
+                    .map(todoListRequestMapper::apply)
+                    .collect(Collectors.toList());
+
+            return new UserDTORequest(
+                    entity.getId(),
+                    entity.getUsername(),
+                    userDetailsConverter.convertFromEntityRequest(entity.getUserDetail()),
+                    todoListDTOs
+            );
         } catch (Exception e) {
             logger.error("Error converting User to UserDTORequest", e);
             return null;

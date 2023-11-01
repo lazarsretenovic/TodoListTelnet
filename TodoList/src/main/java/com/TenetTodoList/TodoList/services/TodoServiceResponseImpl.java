@@ -17,7 +17,6 @@ public class TodoServiceResponseImpl implements TodoServiceResponse {
         this.todoRepository = todoRepository;
         this.todoListConverter = todoListConverter;
     }
-
     @Override
     public List<TodoListDTOResponse> findAll() {
         try {
@@ -29,5 +28,4 @@ public class TodoServiceResponseImpl implements TodoServiceResponse {
             throw new ResourceNotFoundException("Error while fetching response todo_List", e);
         }
     }
-
 }

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TodoListMapper implements TodoListConverter{
+public class TodoListMapper implements TodoListConverter {
     private final UserConverter userConverter;
     private static final Logger logger = LoggerFactory.getLogger(TodoListMapper.class);
     public TodoListMapper(UserConverter userConverter) {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public class TodoListDTOMapperRequest implements Function<TodoList, TodoListDTORequest> {
+public class TodoListRequestMapper implements Function<TodoList, TodoListDTORequest> {
 
     public TodoListDTORequest apply(TodoList todoList){
         return new TodoListDTORequest(

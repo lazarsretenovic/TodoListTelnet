@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private final UserConverter userConverter;
 
 
-    public UserServiceImpl(UserRepository userRepository,UserConverter userConverter) {
+    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
     }
