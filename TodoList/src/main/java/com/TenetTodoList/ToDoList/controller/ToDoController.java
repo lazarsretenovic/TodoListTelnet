@@ -3,12 +3,11 @@ package com.TenetTodoList.ToDoList.controller;
 import com.TenetTodoList.ToDoList.dto.ToDoListDTO;
 import com.TenetTodoList.ToDoList.services.ToDoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 @RestController
 @RequestMapping("/api")
 @Tag(name = "ToDo list:")
@@ -28,12 +27,12 @@ public class ToDoController {
         return new ResponseEntity<>(theTodoList, HttpStatus.OK);
     }
     @PostMapping("/todo_list")
-    public ResponseEntity<ToDoListDTO> addTodo(@RequestBody ToDoListDTO todoListDTO) {
+    public ResponseEntity<ToDoListDTO> addTodo(@RequestBody@Valid ToDoListDTO todoListDTO) {
         ToDoListDTO savedTodoList = todoService.save_new(todoListDTO);
         return new ResponseEntity<>(savedTodoList, HttpStatus.CREATED);
     }
     @PutMapping("/todo_list/{todoListId}")
-    public ResponseEntity<ToDoListDTO> updateTodo(@PathVariable Integer todoListId, @RequestBody ToDoListDTO updatedTodo) {
+    public ResponseEntity<ToDoListDTO> updateTodo(@PathVariable Integer todoListId, @RequestBody@Valid ToDoListDTO updatedTodo) {
         ToDoListDTO updated = todoService.save(updatedTodo);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }

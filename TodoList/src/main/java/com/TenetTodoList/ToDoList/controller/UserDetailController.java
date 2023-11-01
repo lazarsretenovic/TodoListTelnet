@@ -3,6 +3,7 @@ package com.TenetTodoList.ToDoList.controller;
 import com.TenetTodoList.ToDoList.dto.UserDetailDto;
 import com.TenetTodoList.ToDoList.services.UserDetailService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class UserDetailController {
     }
 
     @PutMapping("/user_detail/{userId}")
-    public ResponseEntity<UserDetailDto> updateUser(@PathVariable Integer userId, @RequestBody UserDetailDto updateUserDetailDto) {
+    public ResponseEntity<UserDetailDto> updateUser( @PathVariable Integer userId,@RequestBody @Valid UserDetailDto updateUserDetailDto) {
         UserDetailDto userDetailDto = userDetailService.findById(userId);
         UserDetailDto updatedUserDetail = userDetailService.save(updateUserDetailDto);
         return new ResponseEntity<>(updatedUserDetail, HttpStatus.OK);

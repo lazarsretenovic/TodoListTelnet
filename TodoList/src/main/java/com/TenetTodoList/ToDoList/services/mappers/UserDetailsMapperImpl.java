@@ -14,17 +14,18 @@ public class UserDetailsMapperImpl implements UserDetailsMapper {
 
     @Override
     public UserDetail UserDetailDtoTOEntity(UserDetailDto dto) {
-        UserDetail userDetail = new UserDetail();
         try {
+        UserDetail userDetail = new UserDetail();
             userDetail.setId(dto.id());
             userDetail.setFirstName(dto.first_name());
             userDetail.setLastName(dto.last_name());
             userDetail.setEmail(dto.email());
             userDetail.setCity(dto.city());
+            return userDetail;
         } catch (Exception e) {
             logger.error("Error converting UserDetailDto to UserDetail", e);
+            throw new RuntimeException("Error with converting");
         }
-        throw new RuntimeException("Error with converting");
     }
     @Override
     public UserDetailDto UserDetailFromEntityToDto(UserDetail entity) {
